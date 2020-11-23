@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+
+// import react-router-dom without BrowserRouter gives route errors
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+// import pages
+import ShopContainer from './pages/ShopContainer'
+import HomeContainer from './pages/HomeContainer'
+
+//import route path
+import ROUTES from "./utils/routes";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Switch>
+      <Route path={ROUTES.HOME} exact>
+        <HomeContainer />
+      </Route>
+      <Route path={ROUTES.SHOP} exact>
+        <ShopContainer />
+      </Route>
+    </Switch>
+    </BrowserRouter>
   );
 }
 
