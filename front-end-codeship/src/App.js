@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // import pages
 import ShopContainer from './pages/ShopContainer'
 import HomeContainer from './pages/HomeContainer'
+import ProfileContainer from './pages/ProfileContainer'
 
 //import route path
 import ROUTES from "./utils/routes";
@@ -20,6 +21,9 @@ function App() {
       </Route>
       <Route path={ROUTES.SHOP} exact>
         <ShopContainer />
+      </Route>
+      <Route path={ROUTES.PROFILE} exact>
+        <ProfileContainer />
       </Route>
     </Switch>
     </BrowserRouter>
