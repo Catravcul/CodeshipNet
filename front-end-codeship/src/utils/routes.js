@@ -2,7 +2,7 @@ const ROUTES = {
     HOME: "/",
     // LOGIN: "/login",
     // SIGNUP: "/sign-up",
-    // PROFILE: "/progile/:profileID",
+    PROFILE: "/profile",
     SHOP: "/shop",
   };
   
