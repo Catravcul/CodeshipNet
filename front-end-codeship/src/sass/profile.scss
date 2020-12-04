@@ -1,0 +1,94 @@
+@mixin center-children {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.profile-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .profile-content {
+    width: 90vw;
+    height: 80vh;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    @include center-children();
+
+    .sidenav {
+      width: 29vw;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5);
+
+      .points-content {
+        height: 19vh;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.5);
+        margin-top: 1vh;
+        height: 60vh;
+      }
+    }
+    .profile-info-container {
+      width: 60vw;
+      height: 100%;
+      margin-left: 1vw;
+      background-color: rgba(255, 255, 255, 0.5);
+
+      .users-container {
+        width: 100%;
+        height: 19vh;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      .profile-spaceship-info {
+        background-color: rgba(255, 255, 255, 0.5);
+        height: 60vh;
+        margin-top: 1vh;
+        display: flex;
+        .profile-spaceship-details {
+          width: 19vw;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+        .user-spaceship-details {
+          width: 40vw;
+          height: 100%;
+          margin-left: 1vw;
+          background-color: rgba(255, 255, 255, 0.3);
+          .user-spaceship-link-container {
+            height: 9vh;
+            background-color: rgba(255, 255, 255, 0.3);
+          }
+          .user-spaceship-container {
+            height: 34vh;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin-top: 1vh;
+            .image-container {
+              width: 60%;
+              height: 100%;
+              background-color: rgba(255, 255, 255, 0.3);
+              position: relative;
+              top: 50%;
+              left: 50%;
+              margin-right: -50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+          .products-slider-container {
+            height: 15vh;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin-top: 1vh;
+          }
+        }
+      }
+    }
+  }
+}
