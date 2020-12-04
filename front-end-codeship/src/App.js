@@ -7,6 +7,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ShopContainer from './pages/ShopContainer'
 import HomeContainer from './pages/HomeContainer'
 import ProfileContainer from './pages/ProfileContainer'
+import RegisterContainer from './pages/RegisterContainer'
 
 //import route path
 import ROUTES from "./utils/routes";
@@ -24,6 +25,9 @@ function App() {
       </Route>
       <Route path={ROUTES.PROFILE} exact>
         <ProfileContainer />
+      </Route>
+      <Route path={ROUTES.REGISTER} exact>
+        <RegisterContainer />
       </Route>
     </Switch>
     </BrowserRouter>
