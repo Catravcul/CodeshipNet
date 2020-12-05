@@ -18,6 +18,7 @@ function ProfileContainer(){
           </div>
           <div className="profile-info-container">
               <div className="users-container">
+                  <Slider></Slider>
 
               </div>
               <div className="profile-spaceship-info">
