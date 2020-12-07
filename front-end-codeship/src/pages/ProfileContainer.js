@@ -28,7 +28,9 @@ function ProfileContainer(){
               </div>
               <div className="profile-spaceship-info">
                   <div className="profile-spaceship-details">
-                      <Form register={true}></Form>
+                      
+                      <Form update={true}></Form>
+                    
                   </div>
                   <div className="user-spaceship-details">
                       <div className="user-spaceship-link-container">
