@@ -4,9 +4,10 @@ import React from "react";
 import Form from "../components/Form"
 
 function RegisterContainer(){
+
     return(
             <div className="register-container">
-                    <Form></Form>
+                    <Form register={true} update={false}></Form>
             </div>
     )
 }
