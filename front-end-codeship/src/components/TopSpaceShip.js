@@ -2,9 +2,9 @@ import React from "react";
 
 function TopSpaceShip() {
   return (
-    <div>
+    <div className="TopSpaceShipContainer">
         <h1>TOP SPACESHIP</h1>
-        <img src="http://www.pngmart.com/files/3/Spaceship-PNG-Photo.png"/>
+        <img src="https://creazilla-store.fra1.digitaloceanspaces.com/three_d_models/67470/spaceship-3d-model-44531-md.jpeg"/>
     </div>
   );
 }
