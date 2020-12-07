@@ -1,9 +1,9 @@
 const ROUTES = {
-    HOME: "/",
+    // HOME: "/",
     // LOGIN: "/login",
     // SIGNUP: "/sign-up",
     // PROFILE: "/progile/:profileID",
-    SHOP: "/shop",
+    SHOP: "/",
   };
   
   export default ROUTES;
