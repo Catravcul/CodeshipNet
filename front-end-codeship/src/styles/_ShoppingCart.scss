@@ -1,0 +1,70 @@
+.ShoppingCartContainer{
+    margin-right: 60px;
+    width: 100%;
+    h1{
+        font-size: 20px;
+        font-weight: lighter;
+        color:rgb(245, 230, 16);
+        border-bottom: 2px solid rgb(245, 230, 16);
+        width: 84%;
+    }
+.ShoppingProducts{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    width: 85%;
+    img{
+        height: 90px;
+        margin-right: 15px;
+    }
+    .ShoppingProductsInfo{
+        line-height: 10px;
+        width: 45%;
+        h3{
+            font-size: 20px;
+            color:white;
+        }
+        p{
+            color:white;
+        }
+    }
+    .icon{
+        margin-left: 20px;
+        color:rgb(245, 230, 16);
+        font-size: 25px;
+    }
+}
+.TotalProducts{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    border-top: 2px solid rgb(245, 230, 16);
+    width: 84%;
+    h3{ margin-top:20px;
+        line-height: 0px;
+        font-size: 20px;
+        color: white;
+    }
+    p{  margin-top: 20px;
+        font-size: 20px;
+        color:white;
+    }
+}
+.BuyButton{
+    margin-right: 60px;
+    display: flex;
+    justify-content: center;
+    button{
+        background-color: yellow;
+        color: white;
+        width: 50%;
+        border: none;
+        border-radius: 5px;
+        height: 30px;
+    }
+}
+}
