@@ -14,8 +14,8 @@ function ProfileContainer(){
 
               </div>
               <div className="navbar">
-                  <ButtonsNav></ButtonsNav>
-                  <ButtonsNav></ButtonsNav>
+                  <ButtonsNav title="Profile"></ButtonsNav>
+                  <ButtonsNav title="Spaceship"></ButtonsNav>
                   <ButtonsNav></ButtonsNav>
 
 
@@ -23,12 +23,12 @@ function ProfileContainer(){
           </div>
           <div className="profile-info-container">
               <div className="users-container">
-                  <Slider></Slider>
+                  {/* <Slider></Slider> */}
 
               </div>
               <div className="profile-spaceship-info">
                   <div className="profile-spaceship-details">
-                      <Form></Form>
+                      <Form register={true}></Form>
                   </div>
                   <div className="user-spaceship-details">
                       <div className="user-spaceship-link-container">
@@ -40,7 +40,7 @@ function ProfileContainer(){
                           </div>
                       </div>
                       <div className="products-slider-container">
-                          <Slider></Slider>
+                          {/* <Slider></Slider> */}
                       </div>
                   </div>
 
