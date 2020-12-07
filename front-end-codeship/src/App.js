@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // import pages
 import ShopContainer from './pages/ShopContainer'
-import HomeContainer from './pages/HomeContainer'
+// import HomeContainer from './pages/HomeContainer'
 
 //import route path
 import ROUTES from "./utils/routes";
@@ -15,9 +15,9 @@ function App() {
   return (
     <BrowserRouter>
     <Switch>
-      <Route path={ROUTES.HOME} exact>
+      {/* <Route path={ROUTES.HOME} exact>
         <HomeContainer />
-      </Route>
+      </Route> */}
       <Route path={ROUTES.SHOP} exact>
         <ShopContainer />
       </Route>
