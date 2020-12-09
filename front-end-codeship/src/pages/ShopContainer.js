@@ -33,7 +33,7 @@ function ShopContainer() {
       </div>
       <div className="RightContainer">
         <TopSpaceShip></TopSpaceShip>
-        <ShoppingCart cart={cart} setCart={setCart}></ShoppingCart>
+        {cart.length > 0 ?  <ShoppingCart cart={cart} setCart={setCart}></ShoppingCart>: <div></div> }
       </div>
     </div>
   );
