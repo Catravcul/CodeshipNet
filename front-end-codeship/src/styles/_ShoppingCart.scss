@@ -67,4 +67,31 @@
         height: 30px;
     }
 }
+
+}
+.CoinsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 15px;
+    .Coins{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 25%;
+        margin: 10px;
+        img{
+            width: 100%;
+            border-radius: 5px;
+        }
+        img:hover{
+            border: 2px solid yellow;
+        }
+        p{
+            margin-top: 12px;
+            color: white;
+            text-align: center;
+        }
+    }
 }
