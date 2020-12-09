@@ -6,4 +6,4 @@ console.log(__dirname)
 route.get('/', (req, res) =>{
     res.sendFile(__dirname + '/build/index.html')
 });
-route.listen(process.env.PORT)
+route.listen(5000)
