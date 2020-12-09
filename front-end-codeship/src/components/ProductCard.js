@@ -41,7 +41,7 @@ function ProductCard(props) {
           />
           <div className="ContainerInfoCard">
             <h3>{props.product.title}</h3>
-            <p>{props.product.price} points</p>
+            <p>{props.product.price} coins</p>
             <FontAwesomeIcon icon={faPlusCircle} onClick={()=> addProduct(props.product._id)} className="icon" />
           </div>
           <Modal style={customStyles} className="modal" isOpen={modalIsOpen}>
