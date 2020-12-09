@@ -5,7 +5,7 @@ import SelectProduct from "../components/SelectProduct";
 import ProductCard from "../components/ProductCard";
 import ShoppingCart from "../components/ShoppingCart";
 import TopSpaceShip from "../components/TopSpaceShip";
-// import ProductDetail from '../components/ProductDetail'
+import Header from '../components/Header'
 
 function ShopContainer() {
   const [products, setProducts] = useState([]);
@@ -22,6 +22,8 @@ function ShopContainer() {
   }, []);
 
   return (
+    <div className="Shop">
+      <Header></Header>
     <div className="ShopContainer">
       <div className="LeftContainer">
         <SelectProduct allProducts={allProducts} setProducts={setProducts}></SelectProduct>
@@ -35,6 +37,7 @@ function ShopContainer() {
         <TopSpaceShip></TopSpaceShip>
         {cart.length > 0 ?  <ShoppingCart cart={cart} setCart={setCart}></ShoppingCart>: <div></div> }
       </div>
+    </div>
     </div>
   );
 }
