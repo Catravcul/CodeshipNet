@@ -6,20 +6,20 @@
   transform: translate(-50%, -50%);
 }
 
-.register-container {
+.register-and-login-container {
   width: 100vw;
   height: 100vh;
   background-image: url("../assets/images/bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
   @include center-children();
 
   .form-container {
     width: 80vw;
     height: 70vh;
     background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
     @include center-children();
 
     .actual-form {
