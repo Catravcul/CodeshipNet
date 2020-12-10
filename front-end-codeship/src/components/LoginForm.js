@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import axios from "axios"
+// import axios from "axios"
 
 
 const initialState = {
@@ -18,12 +18,16 @@ changeLoginHandler = e => {
 handleLoginSubmit = e => {
   e.preventDefault();
 
-  axios.post('https://jsonplaceholder.typicode.com/posts', this.state).then(res => {
-    console.log(res)
-  }).catch(err => {
+  fetch('https://codeship-api.herokuapp.com/public/user',{method: "POST", body: JSON.stringify(this.state), headers: {"Content-Type": "application/json"}})
+  .then(res => {
+    return res.json()
+  })
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => {
     console.log(err)
   })
-
 }
   render(){ 
 
