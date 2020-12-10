@@ -34,7 +34,7 @@ function ProfileContainer(){
                           </div>
                       </div>
                       <div className="products-slider-container">
-                          {/* <Slider></Slider> */}
+                          <Slider></Slider>
                       </div>
                   </div>
               </div>
