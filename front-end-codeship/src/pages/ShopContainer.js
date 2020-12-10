@@ -14,41 +14,62 @@ function ShopContainer() {
   const [products, setProducts] = useState([{},{},{}]);
   const [allProducts, setAllProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [pagination, setPagination] = useState([])
+  const [pagination, setPagination] = useState([]);
+  const [page, setPage] = useState(0)
+  const createPagination = (products, setProducts, setPagination) => {
+    setProducts(products.slice(0,6));
+    let pages = products.length / 6
+    let start = 0
+    let end
+    let pagination = []
+    while(pages > 0){
+      pages--
+      end = start + 6
+      pagination.push(products.slice(start, end))
+      start=end
+    }
+    setPagination(pagination)
+  }
   useEffect(() => {
     fetch("https://codeship-api.herokuapp.com/product", { method: "GET" })
       .then((res) => res.json())
       .then(({ data }) => {
-        setProducts(data.products.slice(0,6));
         setAllProducts([...data.products])
-        //  console.log(products)
-        let pages = data.products.length / 6
-        let start = 0
-        let end
-        while(pages > 0){
-          pages--
-          end = start + 6
-          pagination.push(data.products.slice(start, end))
-          start=end
-        }
-        setPagination(pagination)
-        console.log(pagination)
-      });
+        createPagination(data.products, setProducts, setPagination)
+      })
   }, []);
+  const clickPaginationNext = () => {
+    if(pagination.length - 1 > page){
+      setPage(previousState => {
+        const i = previousState + 1
+        setProducts(pagination[i])
+        return i
+      })
+    }
+  }
+  const clickPaginationPrev = () => {
+    if(0 < page){
+      setPage(previousState => {
+        const i = previousState - 1
+        setProducts(pagination[i])
+        return i
+      })
+    }
+  }
   return (
     <div className="Shop">
       <Header></Header>
     <div className="ShopContainer">
       <div className="LeftContainer">
-        <SelectProduct allProducts={allProducts} setProducts={setProducts}></SelectProduct>
+        <SelectProduct allProducts={allProducts} setProducts={setProducts} setPagination={setPagination} createPagination={createPagination}></SelectProduct>
         <div className="ProductCardContainer">
           {products.map((product, index) => (
             <ProductCard key={index} product={product} cart={cart} products={products} setCart={setCart}></ProductCard>
           ))}
         </div>
         <div className="Pagination">
-            <FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon>
-            <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faChevronLeft} onClick={clickPaginationPrev}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faChevronRight} onClick={clickPaginationNext}></FontAwesomeIcon>
         </div>
       </div>
       <div className="RightContainer">
@@ -59,4 +80,5 @@ function ShopContainer() {
     </div>
   );
 }
+
 export default ShopContainer;
