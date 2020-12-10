@@ -21,3 +21,16 @@ body{
     background-size: cover;
     background-repeat: none;
 }
+.Pagination{
+    color:yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85%;
+    margin: 0 auto;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    svg{
+        font-size: 25px;
+    }
+}
