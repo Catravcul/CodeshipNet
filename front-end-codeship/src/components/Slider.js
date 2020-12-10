@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Carousel from 'react-elastic-carousel';
 import Item from "./Item";
-import axios from "axios";
+// import axios from "axios";
 
 const breakPoints = [
     { width: 1, itemsToShow: 8 }
@@ -21,9 +21,15 @@ class Slider extends Component{
     };
 
     componentDidMount(){
-      axios.get('https://jsonplaceholder.typicode.com/photos').then(res => {
-        console.log(res);
-        this.setState({usersProfilePictures: res.data})
+
+      fetch('https://codeship-api.herokuapp.com/public/product', {method: "GET"})
+
+      .then(res => {
+        return res.json();
+      })
+      .then(products =>{
+        console.log(products)
+        this.setState({usersProfilePictures: products.data.products})
       })
       .catch(error => {
         console.log(error)
@@ -38,7 +44,7 @@ class Slider extends Component{
                 <div className="carousel-container">
                 <Carousel breakPoints={breakPoints}>
 
-                {usersProfilePictures.length ? usersProfilePictures.map(image => <Item key={image.id}><img style={this.styles} src={image.url} alt="test"></img></Item>): null}
+                {usersProfilePictures.length ? usersProfilePictures.map(image => <Item key={image.id}><img style={this.styles} src={image.img_path} alt="test"></img></Item>): null}
                 </Carousel>
               </div>
                 );
