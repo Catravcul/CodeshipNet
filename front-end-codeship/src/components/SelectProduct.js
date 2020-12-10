@@ -1,4 +1,3 @@
-
 import React from "react";
 
 function SelectProduct(props) {
@@ -38,11 +37,11 @@ function SelectProduct(props) {
   }
   return (
     <div className="SelectProduct">
-    <select>
-      <option onClick={category}>CATEGORY</option>
-      <option onClick={category}>PROPULSION ENGINE</option>
-      <option onClick={category}>FUSELAGE</option>
-      <option onClick={category}>TAKE-OFF</option>
+    <select onClick={category}>
+      <option>CATEGORY</option>
+      <option>PROPULSION ENGINE</option>
+      <option>FUSELAGE</option>
+      <option>TAKE-OFF</option>
     </select>
     </div>
   );
