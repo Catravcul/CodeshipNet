@@ -37,8 +37,8 @@ function ShoppingCart(props) {
   return (
     <div className="ShoppingCartContainer">
         <h1>CART</h1>
-        {props.cart.map((product) =>(
-        <div className="ShoppingProducts">
+        {props.cart.map((product, index) =>(
+        <div key={index} className="ShoppingProducts">
         <img src={"https://codeship-api.herokuapp.com/" + product.img_path}/>
           <div className="ShoppingProductsInfo">
             <h3>{product.title}</h3>
