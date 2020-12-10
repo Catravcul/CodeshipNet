@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import axios from 'axios';
-// import { useForm } from "react-hook-form";
+// import axios from 'axios';
 
-// username, lastname, email, password, passwordConfirm, description, image and points
 const initialState = {
   username: "",
   name: "",
@@ -26,6 +24,7 @@ class Form extends Component {
 
   //form validation
   validate = () => {
+    
     let errors= [];
  
     if(this.state.username.length < 3){
@@ -35,10 +34,10 @@ class Form extends Component {
       errors[0] = "Username should not be longer than 15 characters";
     }
     if(this.state.name.length < 3){
-      errors[1] = "Name should not be shorter than 12 characters";
+      errors[1] = "Name should not be shorter than 3 characters";
     }
     if(this.state.name.length > 12){
-      errors[1] = "Name should not be shorter than 12 characters";
+      errors[1] = "Name should not be longer than 12 characters";
     }
 
     if(this.state.lastname.length < 3){
@@ -61,35 +60,43 @@ class Form extends Component {
       errors[5] = "Password does not match";
     }
 
-    if(this.state.description < 250){
+    if(this.state.description > 250){
       errors[6] = "Description can't be longer than 250 characters"
     }
 
-    if(errors){
+    if(errors.length > 0){
+      console.log(errors)
       this.setState({errors });
       return false;
     }
-
- return true;
+    return true;
   };
 
   //submit handler
   
   submitHandler = e => {
     e.preventDefault()
+    console.log(this.validate())
     const isValid = this.validate();
+   
+
     if(isValid) {
       console.log(this.state)
-      axios.post('https://jsonplaceholder.typicode.com/posts', this.state)
+      const body = new FormData(document.getElementById('form-register'));
+      fetch('https://codeship-api.herokuapp.com/public/user',{method: "PUT", body: body})
       .then(response => {
-        console.log(response)
+        return response.json() //or .text you get a string
+      }).then(data => {
+        console.log(data)
       })
       .catch(error=> {
         console.log(error)
       })
       //clear Form if it's valid
       this.setState(initialState);
+
     }
+
    }
 
    submitUpdate = e => {
@@ -97,9 +104,11 @@ class Form extends Component {
     const isValid = this.validate();
     if(isValid) {
       console.log(this.state)
-      axios.put('https://jsonplaceholder.typicode.com/posts', this.state)
+      fetch('https://codeship-api.herokuapp.com/user',{method: "PATCH", body: JSON.stringify(this.state)})
       .then(response => {
-        console.log(response)
+        return response.json()
+      }).then(data =>{
+        console.log(data)
       })
       .catch(error=> {
         console.log(error)
@@ -123,7 +132,7 @@ class Form extends Component {
   let button
   return (
 
-    <form class="form-container" onSubmit={this.props.update?this.submitUpdate:this.submitHandler}>
+    <form id="form-register" class="form-container" onSubmit={this.props.update?this.submitUpdate:this.submitHandler}>
             <div className="actual-form">
             <div className="image-register-container">
             <div>
