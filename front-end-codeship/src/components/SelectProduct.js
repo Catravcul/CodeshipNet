@@ -2,7 +2,7 @@ import React from "react";
 
 function SelectProduct(props) {
   const category = (e) => {
-    switch(e.currentTarget.textContent){
+    switch(e.currentTarget.value){
       case 'PROPULSION ENGINE':
         let propulsion = []
         props.allProducts.forEach( product => {
@@ -10,7 +10,7 @@ function SelectProduct(props) {
             propulsion.push(product)
           }
         });
-        props.setProducts(propulsion)
+        props.createPagination(propulsion, props.setProducts, props.setPagination)
       break;
       case 'FUSELAGE':
         let fuselage = []
@@ -19,7 +19,7 @@ function SelectProduct(props) {
             fuselage.push(product)
           }
         });
-        props.setProducts(fuselage)
+        props.createPagination(fuselage, props.setProducts, props.setPagination)
       break;
       case 'TAKE-OFF':
         let takeoff = []
@@ -28,10 +28,10 @@ function SelectProduct(props) {
             takeoff.push(product)
           }
         });
-        props.setProducts(takeoff)
+        props.createPagination(takeoff, props.setProducts, props.setPagination)
         break;
         default:
-          props.setProducts(props.allProducts)
+          props.createPagination(props.allProducts, props.setProducts, props.setPagination)
         break;
     }
   }
