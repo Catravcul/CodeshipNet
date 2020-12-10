@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import react-router-dom without BrowserRouter gives route errors
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
 // import pages
 import ShopContainer from './pages/ShopContainer'
@@ -20,6 +20,8 @@ function App() {
     <Switch>
       <Route path={ROUTES.HOME} exact>
         <HomeContainer />
+        <Link to={ROUTES.LOGIN}>LOGIN</Link>
+        <Link to={ROUTES.REGISTER}>REGISTER</Link>
       </Route>
       <Route path={ROUTES.SHOP} exact>
         <ShopContainer />
