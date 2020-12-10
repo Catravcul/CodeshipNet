@@ -6,4 +6,6 @@ console.log(__dirname)
 route.get('/', (req, res) =>{
     res.sendFile(__dirname + '/build/index.html')
 });
-route.listen(5000)
+route.listen(3000, ()=>{
+    console.log('http://localhost:3000/')
+})
