@@ -52,11 +52,11 @@ class Form extends Component {
       errors[3] = "Mail should have an email format '@' "
     }
 
-    if(this.state.password < 6){
+    if(!this.props.update && this.state.password < 6){
       errors[4] = "Password should be longer than 6 characters";
     }
 
-    if(this.state.passwordConfirm !== this.state.password){
+    if(!this.props.update && this.state.passwordConfirm !== this.state.password){
       errors[5] = "Password does not match";
     }
 
@@ -104,7 +104,10 @@ class Form extends Component {
     const isValid = this.validate();
     if(isValid) {
       console.log(this.state)
-      fetch('https://codeship-api.herokuapp.com/user',{method: "PATCH", body: JSON.stringify(this.state)})
+      const token = sessionStorage.getItem("codeship-token")
+      const body = new FormData(document.getElementById('form-register'));
+      fetch('https://codeship-api.herokuapp.com/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
+
       .then(response => {
         return response.json()
       }).then(data =>{
@@ -128,6 +131,24 @@ class Form extends Component {
     myButton = <button type="submit"> Register </button>
   } else {
     myButton = <button type="submit"> Update </button>}
+
+    let passwords;
+  if(this.props.update){
+    passwords = <div></div>
+
+  } else {
+    passwords = <div>
+    <div>
+    <label for="password">Password</label>
+    <input type="text" id="password" name="password" value={password} onChange={this.changeHandler}placeholder="write a password"></input>
+  </div>
+  <div>{this.state.errors[4]}</div>
+  <div>
+    <label for="passwordConfirm">Confirm Password</label>
+    <input type="text" id="passwordConfirm" name="passwordConfirm" value={passwordConfirm} onChange={this.changeHandler}placeholder=" confirm password"></input>
+  </div>
+  <div>{this.state.errors[5]}</div>
+</div>}
   
   let button
   return (
@@ -162,16 +183,7 @@ class Form extends Component {
                   <input type="email" id="email" name="email" value={email} onChange={this.changeHandler}placeholder="write your email"></input>
                 </div>
                 <div>{this.state.errors[3]}</div>
-                <div>
-                  <label for="password">Password</label>
-                  <input type="text" id="password" name="password" value={password} onChange={this.changeHandler}placeholder="write a password"></input>
-                </div>
-                <div>{this.state.errors[4]}</div>
-                <div>
-                  <label for="passwordConfirm">Confirm Password</label>
-                  <input type="text" id="passwordConfirm" name="passwordConfirm" value={passwordConfirm} onChange={this.changeHandler}placeholder=" confirm password"></input>
-                </div>
-                <div>{this.state.errors[5]}</div>
+                  {passwords}
                 <div>
                   <label for="description">Description</label>
                   <input type="text" id="description" name="description" value={description} onChange={this.changeHandler}placeholder="write a description"></input>
