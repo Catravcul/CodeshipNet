@@ -23,7 +23,10 @@ handleLoginSubmit = e => {
     return res.json()
   })
   .then(data => {
-    console.log(data)
+    console.log(data.data)
+    //saving token and user values in sessionStorage
+    sessionStorage.setItem("codeship-token", data.data.token)
+    sessionStorage.setItem("codeship-user", JSON.stringify(data.data.user))
   })
   .catch(err => {
     console.log(err)
