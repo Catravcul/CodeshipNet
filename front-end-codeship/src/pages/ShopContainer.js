@@ -31,7 +31,7 @@ function ShopContainer() {
     setPagination(pagination)
   }
   useEffect(() => {
-    fetch("https://codeship-api.herokuapp.com/product", { method: "GET" })
+    fetch("https://codeship-api.herokuapp.com/public/product", { method: "GET" })
       .then((res) => res.json())
       .then(({ data }) => {
         setAllProducts([...data.products])
