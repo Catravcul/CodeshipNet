@@ -9,7 +9,7 @@ const initialState = {
   password: "",
   passwordConfirm: "",
   description: "",
-  image: "",
+  profileImage: "https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg",
   errors: []
 }
 
@@ -26,7 +26,7 @@ class Form extends Component {
   validate = () => {
     
     let errors= [];
- 
+
     if(this.state.username.length < 3){
       errors[0] = "Username should not be shorter than 3 characters";
     }
@@ -69,6 +69,7 @@ class Form extends Component {
       this.setState({errors });
       return false;
     }
+
     return true;
   };
 
@@ -121,17 +122,38 @@ class Form extends Component {
     }
    }
 
+   profileImgHandler = (e) =>{
+      const reader = new FileReader();
+      reader.onload = () => {
+        if(reader.readyState === 2){
+          this.setState({profileImage: reader.result })
+        }
+      }
+      reader.readAsDataURL(e.target.files[0])
+   }
+
  render(){
 
-  const {username, name, lastname, email, password, passwordConfirm, description, image} = this.state
+  const {username, name, lastname, email, password, passwordConfirm, description, profileImage} = this.state
 
   //register/update button display
+  //register nav to not show in update
   let myButton;
+  let loginRegisterNav;
   if(this.props.register){
-    myButton = <button type="submit"> Register </button>
+    myButton = <button className="formBtns" type="submit"> Register </button>
+    loginRegisterNav =  
+    <div className="login-regiser-nav">
+      <div>
+        <p className="welcome-user">Login</p>
+        <p className="welcome-user"> | </p>
+        <p className="welcome-user">Register</p>
+      </div>
+  </div>
   } else {
-    myButton = <button type="submit"> Update </button>}
+    myButton = <button className="formBtns update-btn" type="submit"> Update </button>}
 
+    //hide password inputs in update section
     let passwords;
   if(this.props.update){
     passwords = <div></div>
@@ -139,59 +161,54 @@ class Form extends Component {
   } else {
     passwords = <div>
     <div>
-    <label for="password">Password</label>
-    <input type="text" id="password" name="password" value={password} onChange={this.changeHandler}placeholder="write a password"></input>
+    <input className="form-input" type="password" id="password" name="password" value={password} onChange={this.changeHandler}placeholder="Password"></input>
   </div>
-  <div>{this.state.errors[4]}</div>
+  <div className="form-error">{this.state.errors[4]}</div>
   <div>
-    <label for="passwordConfirm">Confirm Password</label>
-    <input type="text" id="passwordConfirm" name="passwordConfirm" value={passwordConfirm} onChange={this.changeHandler}placeholder=" confirm password"></input>
+    <input className="form-input" type="password" id="passwordConfirm" name="passwordConfirm" value={passwordConfirm} onChange={this.changeHandler}placeholder="Confirm password"></input>
   </div>
-  <div>{this.state.errors[5]}</div>
+  <div className="form-error">{this.state.errors[5]}</div>
 </div>}
   
-  let button
   return (
 
-    <form id="form-register" class="form-container" onSubmit={this.props.update?this.submitUpdate:this.submitHandler}>
+    <form id="form-register" className="form-container" onSubmit={this.props.update?this.submitUpdate:this.submitHandler}>
             <div className="actual-form">
             <div className="image-register-container">
-            <div>
-                  <label for="image">Add Image</label>
-                  <input type="image" id="image" name="image" value={image} onChange={this.changeHandler}placeholder="Upload a profile picture"></input>
+            <div className="img-holder">
+                    <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
+                  <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+                  <div>
+                  <label className="upload-img-btn" htmlFor="image"> <i class="fas fa-file-image"></i> Upload a Profile Image</label>
+                  </div>
                 </div>
-                <div>{this.state.imageError}</div>
-            </div>
+              </div>
             <div className="form-register-container">
-            <div>
-                  <label for="username">Username</label>
-                  <input type="text" id="username" name="username" value={username} onChange={this.changeHandler}placeholder="write your name"></input>
+           {loginRegisterNav}
+            <div className="first-input">
+                  <input className="form-input" type="text" id="username" name="username" value={username} onChange={this.changeHandler}placeholder="Username"></input>
                 </div>
-               <div>{this.state.errors[0]}</div>
+               <span className="form-error">{this.state.errors[0]}</span>
                <div>
-                  <label for="name"> Name</label>
-                  <input type="text" id="name" name="name" value={name} onChange={this.changeHandler}placeholder="write your name"></input>
+                  <input className="form-input" type="text" id="name" name="name" value={name} onChange={this.changeHandler}placeholder="Name"></input>
                 </div>
-                <div>{this.state.errors[1]}</div>
+                <div className="form-error">{this.state.errors[1]}</div>
                 <div>
-                  <label for="lastname"> Last name</label>
-                  <input type="text" id="lastname" name="lastname" value={lastname} onChange={this.changeHandler}placeholder="write your last name"></input>
+                  <input className="form-input" type="text" id="lastname" name="lastname" value={lastname} onChange={this.changeHandler}placeholder="Last name"></input>
                 </div>
-                <div>{this.state.errors[2]}</div>
+                <div className="form-error">{this.state.errors[2]}</div>
                 <div>
-                  <label for="email">Email</label>
-                  <input type="email" id="email" name="email" value={email} onChange={this.changeHandler}placeholder="write your email"></input>
+                  <input className="form-input" type="email" id="email" name="email" value={email} onChange={this.changeHandler}placeholder="E-mail"></input>
                 </div>
-                <div>{this.state.errors[3]}</div>
+                <div className="form-error">{this.state.errors[3]}</div>
                   {passwords}
                 <div>
-                  <label for="description">Description</label>
-                  <input type="text" id="description" name="description" value={description} onChange={this.changeHandler}placeholder="write a description"></input>
+                  <input className="form-input description-input" type="textarea" id="description" name="description" value={description} onChange={this.changeHandler}placeholder="Description"></input>
                 </div>
-                <div>{this.state.descriptionError}</div>
+                <div className="form-error">{this.state.descriptionError}</div>
                 {myButton}
             </div>
-          </div>
+            </div>
         </form>
   );
 }
