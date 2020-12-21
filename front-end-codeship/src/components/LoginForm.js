@@ -11,6 +11,17 @@ class LoginForm extends Component{
 
   state = initialState
 
+componentDidMount(){
+  if (this.props.token){
+  // location.href = 'http://localhost:3000/profile'
+  } else {
+    console.log(this.props.token)
+  }
+}
+componentDidUpdate(){
+  console.log(this.props.token)
+}
+
 changeLoginHandler = e => {
   this.setState({[e.target.name]: e.target.value})
 }
@@ -40,14 +51,14 @@ handleLoginSubmit = e => {
     <div className="login-form">
            <form onSubmit={this.handleLoginSubmit}>
            <div>
-                  <label for=""> Username</label>
-                  <input type="text" id="username" name="username" value={username} onChange={this.changeLoginHandler} placeholder="write username"></input>
+                  {/* <label for=""> Username</label> */}
+                  <input className="form-input" type="text" id="username" name="username" value={username} onChange={this.changeLoginHandler} placeholder="Username"></input>
                 </div>
                 <div>
-                  <label for=""> Password</label>
-                  <input type="text" id="password" name="password" value={password} onChange={this.changeLoginHandler} placeholder="write password"></input>
+                  {/* <label for=""> Password</label> */}
+                  <input className="form-input" type="text" id="password" name="password" value={password} onChange={this.changeLoginHandler} placeholder="Password"></input>
                 </div>
-                <button type="submit"> Login</button>
+                <button className="formBtns" type="submit"> Login</button>
            </form>
     </div>)
 }
