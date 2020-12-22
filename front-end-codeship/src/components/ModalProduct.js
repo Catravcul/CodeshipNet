@@ -15,14 +15,6 @@ function ModalProduct(props) {
       inset: "10% auto auto 50%",
     },
   };
-  // carrito!
-  // header(app.js)
-  // img modal coins (illustrator background)
-  // paypal
-  // cambios de estilo
-  // home
-  // beron tiene que hacer en el back unos cambios de orden de comentarios! :)
-
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   useEffect(() => {
