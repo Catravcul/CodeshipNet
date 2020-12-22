@@ -101,23 +101,25 @@
     }
   }
   .commentsContainer {
-    margin-left: 20px;
-    display: flex;
-    flex-direction: row;
-    .ImgUser {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    p {
-      font-size: 11px;
-      line-height: 18px;
-      color: whitesmoke;
-    }
-    span {
-      color: whitesmoke;
-      font-weight: bold;
+    .Comment {
+      margin-left: 20px;
+      display: flex;
+      flex-direction: row;
+      .ImgUser {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      p {
+        font-size: 11px;
+        line-height: 18px;
+        color: whitesmoke;
+      }
+      span {
+        color: whitesmoke;
+        font-weight: bold;
+      }
     }
   }
 }
