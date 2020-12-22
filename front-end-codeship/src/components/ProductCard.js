@@ -30,11 +30,15 @@ function ProductCard(props) {
           {props.product.price}
           coins
         </p>
-        <FontAwesomeIcon
-          icon={faPlusCircle}
-          onClick={() => addProduct(props.product._id)}
-          className="icon"
-        />
+        {props.session ? (
+          <FontAwesomeIcon
+            icon={faPlusCircle}
+            onClick={() => addProduct(props.product._id)}
+            className="icon"
+          />
+        ) : (
+          <span></span>
+        )}
       </div>
       <ModalProduct
         token={props.token}
