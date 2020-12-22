@@ -25,7 +25,7 @@ function ProductCard(props) {
         src={"https://codeship-api.herokuapp.com/" + props.product.img_path}
       />
       <div className="ContainerInfoCard">
-        <h3> {props.product.title} </h3>{" "}
+        <h3> {props.product.title} </h3>
         <p>
           {props.product.price}
           coins
@@ -37,6 +37,7 @@ function ProductCard(props) {
         />
       </div>
       <ModalProduct
+        token={props.token}
         product={props.product}
         setModalIsOpen={setModalIsOpen}
         modalIsOpen={modalIsOpen}
