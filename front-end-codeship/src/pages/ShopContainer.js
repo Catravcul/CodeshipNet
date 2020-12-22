@@ -48,7 +48,10 @@ function ShopContainer(props) {
     })
       .then((res) => res.json())
       .then(({ products }) => {
-        loadCart(user, products);
+        if (user) {
+          console.log(user);
+          loadCart(user, products);
+        }
         setAllProducts([...products]);
         createPagination(products, setProducts, setPagination);
       });
@@ -106,6 +109,7 @@ function ShopContainer(props) {
                 products={products}
                 setCart={setCart}
                 token={token}
+                session={session}
               ></ProductCard>
             ))}
           </div>
