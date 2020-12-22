@@ -15,12 +15,22 @@ function ModalProduct(props) {
       inset: "10% auto auto 50%",
     },
   };
+  // carrito!
+  // header(app.js)
+  // img modal coins (illustrator background)
+  // paypal
+  // cambios de estilo
+  // home
+  // beron tiene que hacer en el back unos cambios de orden de comentarios! :)
+
   const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
   useEffect(() => {
     getProductComments();
   }, [props.modalIsOpen]);
   // show comments
   const getProductComments = () => {
+    setComment("");
     fetch("https://codeship-api.herokuapp.com/public/comment/", {
       headers: {
         "Content-Type": "application/json",
@@ -31,17 +41,38 @@ function ModalProduct(props) {
       }),
     })
       .then((res) => res.json())
-      .then(({ data }) => {
-        if (data.comment.length > 0) {
+      .then(({ comments }) => {
+        if (comments.length > 0) {
           setComments((prevState) => {
-            return data.comment;
+            return comments;
+          });
+        } else {
+          setComments((prevState) => {
+            return [];
           });
         }
       });
   };
 
   // create comments
+  const addProductComments = (e) => {
+    e.preventDefault();
+    fetch("https://codeship-api.herokuapp.com/comment/", {
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": props.token,
+      },
+      method: "PUT",
+      body: JSON.stringify({
+        product: props.product._id,
+        comment: comment,
+      }),
+    }).then(getProductComments);
+  };
 
+  const onChangeTextarea = (e) => {
+    setComment(e.currentTarget.value);
+  };
   return (
     <Modal style={customStyles} className="modal" isOpen={props.modalIsOpen}>
       <span className="closeModal" onClick={() => props.setModalIsOpen(false)}>
@@ -53,9 +84,15 @@ function ModalProduct(props) {
       />
       <h3 className="TitleProductModal">{props.product.title}</h3>
       <p className="DescriptionProductModal">{props.product.description}</p>
-      <form className="FormComments">
-        <textarea className="textareaComments"></textarea>
-        <button className="PublishComment">PUBLISH</button>
+      <form className="FormComments" onSubmit={addProductComments}>
+        <textarea
+          className="textareaComments"
+          value={comment}
+          onChange={onChangeTextarea}
+        ></textarea>
+        <button type="submit" className="PublishComment">
+          PUBLISH
+        </button>
       </form>
       <div className="commentsContainer">
         {comments.map((commentObj) => (
