@@ -17,10 +17,6 @@ class LoginForm extends Component{
     }
   }
 
-componentDidUpdate(){
-  this.loginSessionTest()
-}
-
 changeLoginHandler = e => {
   this.setState({[e.target.name]: e.target.value})
 }
@@ -44,6 +40,7 @@ handleLoginSubmit = e => {
 }
   render(){
 
+    this.loginSessionTest()
     const {username, password} = this.state
 
     return(
