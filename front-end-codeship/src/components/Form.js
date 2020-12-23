@@ -250,7 +250,6 @@ if(this.props.spaceship){
   </>
 }
 
-
   return (
 
     <form id="form-register" className="form-container" onSubmit={this.props.update?this.submitUpdate:this.submitHandler}>
@@ -259,37 +258,9 @@ if(this.props.spaceship){
                 {updateProfilePicture}
               </div>
             <div className="form-register-container">
-           {loginRegisterNav}
-            {/* <div className="first-input">
-                  <input className="form-input" type="text" id="username" name="username" value={username} onChange={this.changeHandler}placeholder="Username"></input>
-                </div>
-               <span className="form-error">{this.state.errors[0]}</span>
-               <div>
-                  <input className="form-input" type="text" id="name" name="name" value={name} onChange={this.changeHandler}placeholder="Name"></input>
-                </div>
-                <div className="form-error">{this.state.errors[1]}</div>
-                <div>
-                  <input className="form-input" type="text" id="lastname" name="lastname" value={lastname} onChange={this.changeHandler}placeholder="Last name"></input>
-                </div>
-                <div className="form-error">{this.state.errors[2]}</div>
-                <div>
-                  <input className="form-input" type="email" id="email" name="email" value={email} onChange={this.changeHandler}placeholder="E-mail"></input>
-                </div>
-                <div className="form-error">{this.state.errors[3]}</div>
-                <div>
-                  <input className={password.class} type="password" id="password" name={password.name} value={password.value} onChange={this.changeHandler}placeholder="Password"></input>
-                </div>
-                <div className="form-error">{this.state.errors[4]}</div>
-                <div>
-                  <input className={passwordConfirm.class} type="password" id="passwordConfirm" name={passwordConfirm.name} value={passwordConfirm.value} onChange={this.changeHandler}placeholder="Confirm password"></input>
-                </div>
-                <div className="form-error">{this.state.errors[5]}</div>
-                <div>
-                  <input className="form-input description-input" type="textarea" id="description" name="description" value={description} onChange={this.changeHandler}placeholder="Description"></input>
-                </div>
-                <div className="form-error">{this.state.descriptionError}</div> */}
-                {inputs}
-                {myButton}
+              {loginRegisterNav}
+              {inputs}
+              {myButton}
             </div>
             </div>
         </form>
