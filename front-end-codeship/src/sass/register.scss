@@ -130,3 +130,24 @@ $white-opacity: rgba(255, 255, 255, 0.7);
   border: 1px solid $yellow;
   border-radius: 4px;
 }
+
+.hidden {
+  display: none;
+}
+
+.img-holder {
+  position: relative;
+  top: 15vh;
+  // text-align: center;
+}
+
+#register-img {
+  width: 30vw;
+  height: 40vh;
+}
+
+.updateProfileImg {
+  position: absolute;
+  right: 15%;
+  top: 25vh;
+}
