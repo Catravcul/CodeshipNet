@@ -17,7 +17,7 @@ import ROUTES from "./utils/routes";
 function App() {
 
 //hash sent through fetch to access private routes
-const[token, setToken] = useState('hika')
+const[token, setToken] = useState('')
 
 
 //Logged user data
@@ -26,10 +26,7 @@ const[session, setSession] = useState({})
 useEffect(() => {
   const tokenSession = sessionStorage.getItem("codeship-token")
   setToken(tokenSession)
-  const userSession = sessionStorage.getItem("session-token")
-  setSession(userSession)
 }, [])
-
 
 
   return (
@@ -50,7 +47,7 @@ useEffect(() => {
         <RegisterContainer />
       </Route>
       <Route path={ROUTES.LOGIN} exact>
-        <LoginContainer session={session} token={token} />
+        <LoginContainer session={session} setSession={setSession} setToken={setToken} token={token} />
       </Route>
     </Switch>
     </BrowserRouter>
