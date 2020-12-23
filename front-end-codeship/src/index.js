@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
+
+//sass imports
+
 import './sass/register.scss';
 import './sass/profile.scss';
+import './sass/navButtons.scss';
+import './sass/loginForm.scss';
 import './index.scss';
-import App from './App';
+
+
 
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
+
 
     <App />,
 
