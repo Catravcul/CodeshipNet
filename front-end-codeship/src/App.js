@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 // import react-router-dom without BrowserRouter gives route errors
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
@@ -15,6 +15,23 @@ import ROUTES from "./utils/routes";
 
 
 function App() {
+
+//hash sent through fetch to access private routes
+const[token, setToken] = useState('hika')
+
+
+//Logged user data
+const[session, setSession] = useState({})
+
+useEffect(() => {
+  const tokenSession = sessionStorage.getItem("codeship-token")
+  setToken(tokenSession)
+  const userSession = sessionStorage.getItem("session-token")
+  setSession(userSession)
+}, [])
+
+
+
   return (
     <BrowserRouter>
     <Switch>
@@ -33,7 +50,7 @@ function App() {
         <RegisterContainer />
       </Route>
       <Route path={ROUTES.LOGIN} exact>
-        <LoginContainer />
+        <LoginContainer session={session} token={token} />
       </Route>
     </Switch>
     </BrowserRouter>
