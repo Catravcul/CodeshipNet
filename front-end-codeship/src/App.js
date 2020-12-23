@@ -19,15 +19,28 @@ function App() {
 //hash sent through fetch to access private routes
 const[token, setToken] = useState('')
 
-
 //Logged user data
 const[session, setSession] = useState({})
 
 useEffect(() => {
-  const tokenSession = sessionStorage.getItem("codeship-token")
-  setToken(tokenSession)
-}, [])
+  if (window.opener) {
+    window.addEventListener('message', e => {
+      if (e.origin === 'https://codeship-game.herokuapp.com') {
+        const tokenSession = e.data
+        sessionStorage.setItem("codeship-token", e.data)
+        setToken(tokenSession)
+      }
+    })
+    window.opener.postMessage('123', 'https://codeship-game.herokuapp.com')
+    window.opener = null
+  } else {
+    const tokenSession = sessionStorage.getItem("codeship-token")
+    setToken(tokenSession)
+  }
 
+  //ask server if token is valid
+
+}, [])
 
   return (
     <BrowserRouter>
