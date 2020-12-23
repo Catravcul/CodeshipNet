@@ -156,7 +156,6 @@ class Form extends Component {
    }
 
  render(){
- 
   const {username, name, lastname, email, password, passwordConfirm, description, profileImage, title, goal, goal_explanation, goal_reason} = this.state
 
   //register/update button display
