@@ -11,15 +11,14 @@ class LoginForm extends Component{
 
   state = initialState
 
-componentDidMount(){
-  if (this.props.token){
-  // location.href = 'http://localhost:3000/profile'
-  } else {
-    console.log(this.props.token)
+  loginSessionTest(){ 
+    if(this.props.token){
+      window.location.href = 'http://localhost:3000/profile'
+    }
   }
-}
+
 componentDidUpdate(){
-  console.log(this.props.token)
+  this.loginSessionTest()
 }
 
 changeLoginHandler = e => {
@@ -34,16 +33,16 @@ handleLoginSubmit = e => {
     return res.json()
   })
   .then(data => {
-    console.log(data.data)
     //saving token and user values in sessionStorage
-    sessionStorage.setItem("codeship-token", data.data.token)
-    sessionStorage.setItem("codeship-user", JSON.stringify(data.data.user))
+    sessionStorage.setItem("codeship-token", data.token)
+    this.props.setToken(data.token)
+    this.props.setSession(data.user)
   })
   .catch(err => {
     console.log(err)
   })
 }
-  render(){ 
+  render(){
 
     const {username, password} = this.state
 
