@@ -9,7 +9,7 @@ function LoginContainer(props){
             <div className="image-design-login">
             </div>
             <div className="login-form-container">
-                <LoginForm token={props.token} setSession={props.setSession}></LoginForm>
+                <LoginForm token={props.token} setSession={props.setSession} setToken={props.setToken}></LoginForm>
 
             </div>
         </div>
