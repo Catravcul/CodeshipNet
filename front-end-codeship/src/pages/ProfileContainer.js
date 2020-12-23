@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-//Profile Components 
+//Profile Components
 import Slider from "../components/Slider"
 import Form from "../components/Form"
 import ButtonsNav from "../components/ButtonsNav"
@@ -12,8 +12,10 @@ function ProfileContainer(){
     const [usersProfilePictures, setUsersProfilePictures] = useState([])
     const [productsImages, setProductsImages] = useState([])
 
+    const [updateForm, setUpdateForm] = useState(true)
+    
     //fetch users
-    useEffect(() => { 
+    useEffect(() => {
 
         const token = sessionStorage.getItem("codeship-token")
           fetch('https://codeship-api.herokuapp.com/user', {method: "GET", headers:{"x-access-token": token}})
@@ -27,10 +29,8 @@ function ProfileContainer(){
           .catch(error => {
             console.log(error)
           })
-    
          //fetch products
           fetch('https://codeship-api.herokuapp.com/public/product', {method: "GET"})
-    
           .then(res => {
             return res.json();
           })
@@ -42,15 +42,17 @@ function ProfileContainer(){
             console.log(error)
           })
         },[])
-    
+
         //events for profile and spaceship update
-        
-        const showUpdateProfile = () =>{ 
+        const showUpdateProfile = () =>{
             console.log("profile")
+            setUpdateForm(false)
         }
 
-        const showUpdateSpaceship = () =>{ 
+        const showUpdateSpaceship = () =>{
             console.log("spaceship")
+            setUpdateForm(true)
+
         }
 
     return(
@@ -61,7 +63,7 @@ function ProfileContainer(){
 
               </div>
               <div className="navbar">
-                  <ButtonsNav title="Profile" click={showUpdateProfile}></ButtonsNav>
+    <ButtonsNav title="Profile" click={showUpdateProfile}></ButtonsNav>
                   <ButtonsNav title="Spaceship" click={showUpdateSpaceship}></ButtonsNav>
             </div>
           </div>
@@ -71,13 +73,15 @@ function ProfileContainer(){
               </div>
               <div className="profile-spaceship-info">
                   <div className="profile-spaceship-details">
-                      <Form update={true}></Form>
+                    {/*props update button*/}
+                      <Form spaceship={updateForm} update={true}></Form>
                   </div>
                   <div className="user-spaceship-details">
                       <div className="user-spaceship-link-container">
                       </div>
                       <div className="user-spaceship-container">
-                          <div className="image-container">
+                          <div className="">
+                          {}
                           </div>
                       </div>
                       <div className="products-slider-container">
