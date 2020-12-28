@@ -11,22 +11,15 @@ import TopSpaceShip from "../components/TopSpaceShip";
 import Header from "../components/Header";
 
 function ShopContainer(props) {
-  const [token, setToken] = useState("");
-  const [session, setSession] = useState({ cart: [] });
-  useEffect(() => {
-    setToken(sessionStorage.getItem("codeship-token"));
-    setSession((prevState) => {
-      const data = JSON.parse(sessionStorage.getItem("codeship-session"));
-      loadProducts(data);
-      return data;
-    });
-  }, []);
-
-  const [products, setProducts] = useState([{}, {}, {}]);
+  const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [pagination, setPagination] = useState([]);
   const [page, setPage] = useState(0);
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   const createPagination = (products, setProducts, setPagination) => {
     setProducts(products.slice(0, 6));
     let pages = products.length / 6;
@@ -43,18 +36,22 @@ function ShopContainer(props) {
   };
 
   const loadProducts = (user) => {
-    fetch("https://codeship-api.herokuapp.com/public/product", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then(({ products }) => {
-        if (user) {
-          console.log(user);
-          loadCart(user, products);
-        }
-        setAllProducts([...products]);
-        createPagination(products, setProducts, setPagination);
-      });
+    if (products.length > 0) {
+      console.log(products);
+      loadCart(user, products);
+    } else {
+      fetch("https://codeship-api.herokuapp.com/public/product", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then(({ products }) => {
+          if (user) {
+            loadCart(user, products);
+          }
+          setAllProducts([...products]);
+          createPagination(products, setProducts, setPagination);
+        });
+    }
   };
   const loadCart = (user, items) => {
     const cartItems = [];
@@ -89,6 +86,18 @@ function ShopContainer(props) {
     }
   };
 
+  if (props.token && !props.session.cart) {
+    fetch("https://codeship-api.herokuapp.com/user", {
+      method: "GET",
+      headers: { "x-access-token": props.token },
+    })
+      .then((res) => res.json())
+      .then(({ user }) => {
+        loadProducts(user);
+        props.setSession(user);
+      });
+  }
+
   return (
     <div className="Shop">
       <Header></Header>
@@ -108,8 +117,8 @@ function ShopContainer(props) {
                 cart={cart}
                 products={products}
                 setCart={setCart}
-                token={token}
-                session={session}
+                token={props.token}
+                session={props.session}
               ></ProductCard>
             ))}
           </div>
@@ -128,11 +137,11 @@ function ShopContainer(props) {
           <TopSpaceShip></TopSpaceShip>
           {cart.length > 0 ? (
             <ShoppingCart
-              token={token}
+              token={props.token}
               cart={cart}
               setCart={setCart}
               allProducts={allProducts}
-              setSession={setSession}
+              setSession={props.setSession}
             ></ShoppingCart>
           ) : (
             <div></div>
