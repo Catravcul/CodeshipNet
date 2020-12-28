@@ -30,7 +30,7 @@ function ProductCard(props) {
           {props.product.price}
           coins
         </p>
-        {props.session ? (
+        {props.session.cart ? (
           <FontAwesomeIcon
             icon={faPlusCircle}
             onClick={() => addProduct(props.product._id)}
