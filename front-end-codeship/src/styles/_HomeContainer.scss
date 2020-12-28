@@ -1,0 +1,120 @@
+.HomeContainer {
+  width: 100%;
+  height: 100vh;
+  // background-image: url("https://media.gettyimages.com/videos/spaceship-gate-opening-video-id146126228?s=640x640");
+  background-image: url("../assets/tunnel-4427837_1280.jpg");
+  background-size: cover;
+  background-repeat: none;
+  .FlexboxHome {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    .ProfileHome {
+      position: relative;
+      margin: 10px;
+      width: 22%;
+      height: 470px;
+      background-image: url("../assets/3-codeship.png");
+      background-size: cover;
+      background-repeat: none;
+      background-position: center;
+      border-radius: 5px;
+      background-color: black;
+      opacity: 1;
+      border: 1px solid transparent;
+      box-shadow: -9px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: -9px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: -9px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      h1 {
+        padding: 100px;
+        color: transparent;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .ProfileHome:hover {
+      background-image: linear-gradient(
+          rgba(87, 60, 60, 0.507),
+          rgba(14, 12, 12, 0.63)
+        ),
+        url("../assets/3-codeship.png");
+      border: 1px solid yellow;
+      h1:hover {
+        color: yellow;
+      }
+    }
+    .PlayHome {
+      position: relative;
+      margin: 10px;
+      width: 22%;
+      height: 600px;
+      background: url("../assets/2-codeship.png");
+      background-size: cover;
+      background-repeat: none;
+      background-position: center;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      box-shadow: 3px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: 3px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 3px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      h1 {
+        padding: 150px;
+        color: transparent;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .PlayHome:hover {
+      border: 1px solid yellow;
+      background-image: linear-gradient(
+          rgba(87, 60, 60, 0.507),
+          rgba(14, 12, 12, 0.63)
+        ),
+        url("../assets/2-codeship.png");
+      h1:hover {
+        color: yellow;
+      }
+    }
+    .ShopHome {
+      position: relative;
+      margin: 10px;
+      width: 22%;
+      height: 425px;
+      background-image: url("../assets/1-codeship.png");
+      background-size: cover;
+      background-repeat: none;
+      background-position: center;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      box-shadow: 6px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      -webkit-box-shadow: 6px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 6px -1px 24px 4px rgba(0, 0, 0, 0.75);
+      h1 {
+        padding: 100px;
+        color: transparent;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .ShopHome:hover {
+      border: 1px solid yellow;
+      background-image: linear-gradient(
+          rgba(87, 60, 60, 0.507),
+          rgba(14, 12, 12, 0.63)
+        ),
+        url("../assets/1-codeship.png");
+
+      h1:hover {
+        color: yellow;
+      }
+    }
+  }
+}
