@@ -100,7 +100,7 @@ function ShopContainer(props) {
 
   return (
     <div className="Shop">
-      <Header></Header>
+      <Header session={props.session} />
       <div className="ShopContainer">
         <div className="LeftContainer">
           <SelectProduct
