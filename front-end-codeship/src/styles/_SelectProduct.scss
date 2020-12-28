@@ -1,17 +1,18 @@
-.SelectProduct{
-    margin-left: 77px;
-    select{
-        width: 230px;
-        color: yellow;
-        background: transparent;
-        border: 1px solid yellow;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        padding: 2px 2px 5px 10px;
-        option{
-            background-color: yellow;
-            color:black;
-        }
+.SelectProduct {
+  margin-top: 20px;
+  margin-left: 77px;
+  select {
+    width: 230px;
+    color: yellow;
+    background: transparent;
+    border: 1px solid yellow;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 2px 2px 5px 10px;
+    option {
+      background-color: yellow;
+      color: black;
     }
+  }
 }
