@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 function Header(props) {
   var [toggle, setToggle] = useState(false);
+  const signOut = () => {
+    sessionStorage.setItem("codeship-token", "");
+    props.setSession({});
+    props.setToken("");
+  };
   let userModal;
   if (toggle) {
     userModal = (
@@ -12,7 +17,9 @@ function Header(props) {
         {props.session.cart ? (
           <>
             <Link to="/profile"> Profile</Link>
-            <Link to="/login"> Sign Out</Link>
+            <Link to="/login" onClick={signOut}>
+              Sign Out
+            </Link>
           </>
         ) : (
           <Link to="/login"> Log In</Link>
@@ -20,6 +27,7 @@ function Header(props) {
       </div>
     );
   }
+
   return (
     <header>
       <Link to="/">
