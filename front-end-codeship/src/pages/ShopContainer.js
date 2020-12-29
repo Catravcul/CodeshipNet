@@ -100,7 +100,11 @@ function ShopContainer(props) {
 
   return (
     <div className="Shop">
-      <Header session={props.session} />
+      <Header
+        setSession={props.setSession}
+        setToken={props.setToken}
+        session={props.session}
+      />
       <div className="ShopContainer">
         <div className="LeftContainer">
           <SelectProduct
