@@ -13,6 +13,6 @@ route.use(express.static(__dirname + "/build"));
 route.get("*", (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
 });
-route.listen(3000, () => {
+route.listen(process.env.PORT, () => {
   console.log("http://localhost:3000/");
 });
