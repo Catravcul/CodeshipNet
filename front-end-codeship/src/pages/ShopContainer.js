@@ -37,7 +37,6 @@ function ShopContainer(props) {
 
   const loadProducts = (user) => {
     if (products.length > 0) {
-      console.log(products);
       loadCart(user, products);
     } else {
       fetch("https://codeship-api.herokuapp.com/public/product", {
