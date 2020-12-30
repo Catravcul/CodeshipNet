@@ -9,6 +9,7 @@ function ShoppingCart(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [coins, setCoins] = useState(0);
+  let totalPrice = 0;
   const customStyles = {
     content: {
       top: "50%",
@@ -22,12 +23,29 @@ function ShoppingCart(props) {
       inset: "10% auto auto 50%",
     },
   };
-
+  const getCartIds = () => {
+    return props.cart.map((item) => item._id);
+  };
   const deleteProduct = (id) => {
     const productIndex = props.cart.findIndex((product) => product._id === id);
     let cart = props.cart;
     cart.splice(productIndex, 1);
     props.setCart([...cart]);
+    if (cart.length === 0) {
+      fetch("https://codeship-api.herokuapp.com/user", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": props.token,
+        },
+        body: JSON.stringify({ cart: [] }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          sessionStorage.setItem("codeship-session", JSON.stringify(data.user));
+          props.setSession(data.user);
+        });
+    }
   };
 
   const getTotalPrice = () => {
@@ -35,12 +53,12 @@ function ShoppingCart(props) {
     props.cart.forEach((product) => {
       result += product.price;
     });
+    totalPrice = result;
     return result;
   };
 
   const saveCart = () => {
     const itemsID = props.cart.map((item) => item._id);
-    console.log(itemsID);
     const body = { cart: itemsID };
     fetch("https://codeship-api.herokuapp.com/user", {
       method: "PATCH",
@@ -82,7 +100,35 @@ function ShoppingCart(props) {
         <button onClick={saveCart}>SAVE CART</button>
       </div>
       <div className="BuyButton">
-        <button onClick={() => setModalIsOpen(true)}>BUY</button>
+        {/* <button onClick={() => setModalIsOpen(true)}>BUY</button> */}
+
+        <button
+          onClick={() => {
+            if (totalPrice > props.session.points) {
+              setModalIsOpen(true);
+            } else {
+              fetch("https://codeship-api.herokuapp.com/user", {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-access-token": props.token,
+                },
+                body: JSON.stringify({
+                  points: props.session.points - totalPrice,
+                  cart: [],
+                  items: props.session.items.concat(getCartIds()),
+                }),
+              })
+                .then((res) => res.json())
+                .then(({ user }) => {
+                  props.setSession(user);
+                  props.setCart([]);
+                });
+            }
+          }}
+        >
+          BUY
+        </button>
       </div>
       <Modal style={customStyles} className="modal" isOpen={modalIsOpen}>
         <span className="closeModal" onClick={() => setModalIsOpen(false)}>
