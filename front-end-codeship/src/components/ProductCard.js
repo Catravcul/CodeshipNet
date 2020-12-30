@@ -33,7 +33,18 @@ function ProductCard(props) {
         {props.session.cart ? (
           <FontAwesomeIcon
             icon={faPlusCircle}
-            onClick={() => addProduct(props.product._id)}
+            onClick={() => {
+              if (
+                props.session.items.findIndex(
+                  (id) => id === props.product._id
+                ) === -1 &&
+                props.cart.findIndex(
+                  (item) => item._id === props.product._id
+                ) === -1
+              ) {
+                addProduct(props.product._id);
+              }
+            }}
             className="icon"
           />
         ) : (
