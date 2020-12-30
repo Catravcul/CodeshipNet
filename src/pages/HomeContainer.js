@@ -5,11 +5,11 @@ function HomeContainer(props) {
   const playGame = () => {
     let gameWindow = window.open("https://codeship-game.herokuapp.com/");
     window.onmessage = (e) => {
-      if (e.origin === "https://codeship-game.herokuapp.com/") {
+      if (e.origin === "https://codeship-game.herokuapp.com") {
         if (e.data === "123") {
           gameWindow.postMessage(
             props.token,
-            "https://codeship-game.herokuapp.com/"
+            "https://codeship-game.herokuapp.com"
           );
         }
       }
