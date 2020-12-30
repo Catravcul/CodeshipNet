@@ -141,6 +141,7 @@ function ShopContainer(props) {
           <TopSpaceShip></TopSpaceShip>
           {cart.length > 0 ? (
             <ShoppingCart
+              session={props.session}
               token={props.token}
               cart={cart}
               setCart={setCart}
