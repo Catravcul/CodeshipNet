@@ -3,8 +3,12 @@ import Modal from "react-modal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import Paypal from "./Paypal";
+
 function ShoppingCart(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [checkout, setCheckout] = useState(false);
+  const [coins, setCoins] = useState(0);
   const customStyles = {
     content: {
       top: "50%",
@@ -84,32 +88,83 @@ function ShoppingCart(props) {
         <span className="closeModal" onClick={() => setModalIsOpen(false)}>
           X
         </span>
-        <div className="CoinsContainer">
-          <div className="Coins">
-            <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
-            <p>10 COINS</p>
+        {checkout ? (
+          <>
+            <span className="closeModal" onClick={() => setModalIsOpen(false)}>
+              X
+            </span>
+            <p onClick={() => setCheckout(false)}>BACK</p>
+            <Paypal
+              setSession={props.setSession}
+              session={props.session}
+              token={props.token}
+              coins={coins}
+            />
+          </>
+        ) : (
+          <div className="CoinsContainer">
+            <div
+              onClick={() => {
+                setCheckout(true);
+                setCoins(10);
+              }}
+              className="Coins"
+            >
+              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <p data-coins="10">10 COINS</p>
+            </div>
+            <div
+              onClick={() => {
+                setCheckout(true);
+                setCoins(50);
+              }}
+              className="Coins"
+            >
+              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <p data-coins="50">50 COINS</p>
+            </div>
+            <div
+              onClick={() => {
+                setCheckout(true);
+                setCoins(75);
+              }}
+              className="Coins"
+            >
+              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <p data-coins="75">75 COINS</p>
+            </div>
+            <div
+              onClick={() => {
+                setCheckout(true);
+                setCoins(100);
+              }}
+              className="Coins"
+            >
+              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <p data-coins="100">100 COINS</p>
+            </div>
+            <div
+              onClick={() => {
+                setCheckout(true);
+                setCoins(250);
+              }}
+              className="Coins"
+            >
+              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <p data-coins="250">250 COINS</p>
+            </div>
+            <div
+              onClick={() => {
+                setCheckout(true);
+                setCoins(500);
+              }}
+              className="Coins"
+            >
+              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <p data-coins="500">500 COINS</p>
+            </div>
           </div>
-          <div className="Coins">
-            <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
-            <p>50 COINS</p>
-          </div>
-          <div className="Coins">
-            <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
-            <p>75 COINS</p>
-          </div>
-          <div className="Coins">
-            <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
-            <p>100 COINS</p>
-          </div>
-          <div className="Coins">
-            <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
-            <p>250 COINS</p>
-          </div>
-          <div className="Coins">
-            <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
-            <p>500 COINS</p>
-          </div>
-        </div>
+        )}
       </Modal>
     </div>
   );
