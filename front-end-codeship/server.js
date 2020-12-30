@@ -10,7 +10,7 @@ route.use((req, res, next) => {
   next();
 });
 route.use(express.static(__dirname + "/build"));
-route.get("/", (req, res) => {
+route.get("*", (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
 });
 route.listen(3000, () => {
