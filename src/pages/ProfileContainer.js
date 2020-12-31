@@ -39,13 +39,20 @@ function ProfileContainer(){
     })
   },[context.token])
 
-  //fetch products
-  useEffect( () => {
+  useEffect(() => {
     const userId =  window.location.href.split('/')[4]
-    getFetch(
-      context.config.codeshipApi.urlBase + '/public/user/' + userId,
-      ({user}) => setUser(user)
-    )
+    if (userId) {
+      getFetch(
+        context.config.codeshipApi.urlBase + '/public/user/' + userId,
+        ({user}) => setUser(user)
+      )
+    } else if (context.session._id) {
+      setUser(context.session)
+    }
+  }, [context.session])
+
+  //fetch products & user
+  useEffect( () => {
     getFetch(
       context.config.codeshipApi.urlBase + '/public/product',
       ({products}) => setProductsImages(products)
@@ -80,7 +87,7 @@ function ProfileContainer(){
                 <div className="profile-spaceship-info">
                     <div className="profile-spaceship-details">
                       {/*props update button*/}
-                        <Form spaceship={updateForm} update={true}></Form>
+                        <Form spaceship={updateForm} update={true} user={user}></Form>
                     </div>
                     <div className="user-spaceship-details">
                         <div className="user-spaceship-link-container">
