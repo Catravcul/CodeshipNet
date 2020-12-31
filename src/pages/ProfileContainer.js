@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
+import { Context } from '../components/Context'
 
 //Profile Components
 import Slider from "../components/Slider"
@@ -8,91 +10,87 @@ import ButtonsNav from "../components/ButtonsNav"
 
 
 function ProfileContainer(){
+  const context = useContext(Context)
 
-    const [usersProfilePictures, setUsersProfilePictures] = useState([])
-    const [productsImages, setProductsImages] = useState([])
+  const [usersProfilePictures, setUsersProfilePictures] = useState([])
+  const [productsImages, setProductsImages] = useState([])
 
-    const [updateForm, setUpdateForm] = useState(true)
-    
-    //fetch users
-    useEffect(() => {
+  const [updateForm, setUpdateForm] = useState(true)
+  
+  //fetch users
+  useEffect(() => {
+    fetch(context.config.codeshipApi.urlBase + '/user/all', 
+    {method: "GET", headers:{"x-access-token": context.token}, cache: 'no-cache'})
+    .then(res => {
+      return res.json();
+    })
+    .then(({users}) => setUsersProfilePictures(users))
+    .catch(error => {
+      console.log(error)
+    })
+  },[context.token])
 
-        const token = sessionStorage.getItem("codeship-token")
-          fetch('https://codeship-api.herokuapp.com/user', {method: "GET", headers:{"x-access-token": token}})
-          .then(res => {
-            return res.json();
-          })
-          .then(data =>{
-            console.log(data)
-            setUsersProfilePictures(data.data.users)
-          })
-          .catch(error => {
-            console.log(error)
-          })
-         //fetch products
-          fetch('https://codeship-api.herokuapp.com/public/product', {method: "GET"})
-          .then(res => {
-            return res.json();
-          })
-          .then(products =>{
-            console.log(products)
-            setProductsImages(products.data.products)
-          })
-          .catch(error => {
-            console.log(error)
-          })
-        },[])
+  //fetch products
+  useEffect( () => {
+    fetch(context.config.codeshipApi.urlBase + '/public/product', 
+    {method: "GET", cache: 'no-cache'})
+    .then(res => {
+      return res.json();
+    })
+    .then(({products}) =>{
+      setProductsImages(products)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },[])
+  
+  //events for profile and spaceship update
+  const showUpdateProfile = () =>{
+    setUpdateForm(false)
+  }
+  
+  const showUpdateSpaceship = () =>{
+      setUpdateForm(true)
+  }
 
-        //events for profile and spaceship update
-        const showUpdateProfile = () =>{
-            console.log("profile")
-            setUpdateForm(false)
-        }
+  return(
+    <div className="profile-container">
+        <div className="profile-content">
+            <div className="sidenav">
+                <div className="points-content">
 
-        const showUpdateSpaceship = () =>{
-            console.log("spaceship")
-            setUpdateForm(true)
-
-        }
-
-    return(
-  <div className="profile-container">
-      <div className="profile-content">
-          <div className="sidenav">
-              <div className="points-content">
-
+                </div>
+                <div className="navbar">
+      <ButtonsNav title="Profile" click={showUpdateProfile}></ButtonsNav>
+                    <ButtonsNav title="Spaceship" click={showUpdateSpaceship}></ButtonsNav>
               </div>
-              <div className="navbar">
-    <ButtonsNav title="Profile" click={showUpdateProfile}></ButtonsNav>
-                  <ButtonsNav title="Spaceship" click={showUpdateSpaceship}></ButtonsNav>
             </div>
-          </div>
-          <div className="profile-info-container">
-              <div className="users-container">
-                  <Slider items={usersProfilePictures}></Slider>
-              </div>
-              <div className="profile-spaceship-info">
-                  <div className="profile-spaceship-details">
-                    {/*props update button*/}
-                      <Form spaceship={updateForm} update={true}></Form>
-                  </div>
-                  <div className="user-spaceship-details">
-                      <div className="user-spaceship-link-container">
-                      </div>
-                      <div className="user-spaceship-container">
-                          <div className="">
-                          {}
-                          </div>
-                      </div>
-                      <div className="products-slider-container">
-                          <Slider items={productsImages}></Slider>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-    )
-    }
-
+            <div className="profile-info-container">
+                <div className="users-container">
+                    <Slider items={usersProfilePictures}></Slider>
+                </div>
+                <div className="profile-spaceship-info">
+                    <div className="profile-spaceship-details">
+                      {/*props update button*/}
+                        <Form spaceship={updateForm} update={true}></Form>
+                    </div>
+                    <div className="user-spaceship-details">
+                        <div className="user-spaceship-link-container">
+                        </div>
+                        <div className="user-spaceship-container">
+                            <div className="">
+                            {}
+                            </div>
+                        </div>
+                        <div className="products-slider-container">
+                            <Slider items={productsImages}></Slider>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+)}
+  
 export default ProfileContainer;
