@@ -23,27 +23,28 @@ const initialState = {
   goal: "",
   goal_explanation: "",
   goal_reason: "",
+  userShowed: false
 }
 
 class Form extends Component {
-
-    state= initialState;
-
-    componentDidMount(){
-      if (this.props.update) {
-        this.setState({
-          password: {
-            class:'hidden',
-            name:''
-          },
-          passwordConfirm: {
-            class:'hidden',
-            name:''
-          }
-        })
-      }
+  
+  state= initialState;
+  
+  componentDidMount(){
+    if (this.props.update) {
+      this.setState({
+        password: {
+          class:'hidden',
+          name:''
+        },
+        passwordConfirm: {
+          class:'hidden',
+          name:''
+        }
+      })
     }
-
+  }
+  
   //track the change of input values and keep in sync with the state object
   changeHandler = e => {
     this.setState({[e.target.name]: e.target.value})
@@ -122,8 +123,8 @@ class Form extends Component {
       this.setState(initialState);
     }
    }
-
-   submitUpdate = e => {
+   
+  submitUpdate = e => {
     e.preventDefault()
     const isValid = this.validate();
     if(isValid) {
@@ -131,8 +132,7 @@ class Form extends Component {
       const token = sessionStorage.getItem("codeship-token")
       const body = new FormData(document.getElementById('form-register'));
       fetch(this.context.config.codeshipApi.urlBase + '/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
-
-      .then(response => {
+        .then(response => {
         return response.json()
       }).then(data =>{
         console.log(data)
@@ -145,24 +145,38 @@ class Form extends Component {
     }
    }
 
-   profileImgHandler = (e) =>{
-      const reader = new FileReader();
-      reader.onload = () => {
-        if(reader.readyState === 2){
-          this.setState({profileImage: reader.result })
-        }
+  profileImgHandler = (e) =>{
+    const reader = new FileReader();
+    reader.onload = () => {
+      if(reader.readyState === 2){
+        this.setState({profileImage: reader.result })
       }
-      reader.readAsDataURL(e.target.files[0])
-   }
+    }
+    reader.readAsDataURL(e.target.files[0])
+  }
 
- render(){
+  render(){
+  
+    if (this.props.user) {
+      if (this.props.user.username && !this.state.userShowed) {
+        const {username, name, lastname, email, description} = this.props.user
+        this.setState({
+          username: username,
+          name: name,
+          lastname: lastname,
+          email: email,
+          description: description,
+          userShowed: true
+        })
+      }
+    }
+
   const {username, name, lastname, email, password, passwordConfirm, description, profileImage, title, goal, goal_explanation, goal_reason} = this.state
-
   //register/update button display
   //register nav to not show in update
   let myButton;
   let loginRegisterNav;
-  if(this.props.register){
+  if (this.props.register) {
     myButton = <button className="formBtns" type="submit"> Register </button>
     loginRegisterNav = 
     <div className="login-regiser-nav">
@@ -172,97 +186,98 @@ class Form extends Component {
         <p className="welcome-user">Register</p>
       </div>
     </div>
-    } else {
+  } else {
     myButton = 
-    <button className="formBtns update-btn" type="submit"> Update Profile </button>}
+    <button className="formBtns update-btn" type="submit"> Update Profile </button>
+  }
 
-let updateProfilePicture;
-if(this.props.update){
-  updateProfilePicture =
-  <div className="updateProfileImg">
-    <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
-    <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
-    <div>
-      <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
+  let updateProfilePicture;
+  if (this.props.update) {
+    updateProfilePicture =
+    <div className="updateProfileImg">
+      <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
+      <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+      <div>
+        <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
+      </div>
     </div>
-  </div>
-} else {
-  updateProfilePicture =
-  <div className="img-holder">
-    <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
-    <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
-    <div>
-      <label className="upload-img-btn" htmlFor="image"> <i class="fas fa-file-image"></i> Upload a Profile Image</label>
+  } else {
+    updateProfilePicture =
+    <div className="img-holder">
+      <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
+      <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+      <div>
+        <label className="upload-img-btn" htmlFor="image"> <i class="fas fa-file-image"></i> Upload a Profile Image</label>
+      </div>
     </div>
-  </div>
-}
+  }
 
 
-let inputs;
-if(this.props.spaceship){
-  inputs = 
-<div >
-  <div>
-    <input className="form-input" type="text" id="title" name="title" value={title} onChange={this.changeHandler}placeholder="Title"></input>
-  </div>
-  <div>
-    <input className="form-input" type="text" id="goal" name="goal" value={goal} onChange={this.changeHandler}placeholder="Goal"></input>
-  </div>
-  <div>
-    <input className="form-input" type="text" id="goal_explanation" name="goal_explanation" value={goal_explanation} onChange={this.changeHandler}placeholder="Goal Explanation"></input>
-  </div>
-  <div>
-    <input className="form-input" type="text" id="goal_reason" name="goal_reason" value={goal_reason} onChange={this.changeHandler}placeholder="Goal Reason"></input>
-  </div>
-</div>
-} else {
-  inputs =
-  <>
-     <div className="first-input">
-                  <input className="form-input" type="text" id="username" name="username" value={username} onChange={this.changeHandler}placeholder="Username"></input>
-                </div>
-               <span className="form-error">{this.state.errors[0]}</span>
-               <div>
-                  <input className="form-input" type="text" id="name" name="name" value={name} onChange={this.changeHandler}placeholder="Name"></input>
-                </div>
-                <div className="form-error">{this.state.errors[1]}</div>
-                <div>
-                  <input className="form-input" type="text" id="lastname" name="lastname" value={lastname} onChange={this.changeHandler}placeholder="Last name"></input>
-                </div>
-                <div className="form-error">{this.state.errors[2]}</div>
-                <div>
-                  <input className="form-input" type="email" id="email" name="email" value={email} onChange={this.changeHandler}placeholder="E-mail"></input>
-                </div>
-                <div className="form-error">{this.state.errors[3]}</div>
-                <div>
-                  <input className={password.class} type="password" id="password" name={password.name} value={password.value} onChange={this.changeHandler}placeholder="Password"></input>
-                </div>
-                <div className="form-error">{this.state.errors[4]}</div>
-                <div>
-                  <input className={passwordConfirm.class} type="password" id="passwordConfirm" name={passwordConfirm.name} value={passwordConfirm.value} onChange={this.changeHandler}placeholder="Confirm password"></input>
-                </div>
-                <div className="form-error">{this.state.errors[5]}</div>
-                <div>
-                  <input className="form-input description-input" type="textarea" id="description" name="description" value={description} onChange={this.changeHandler}placeholder="Description"></input>
-                </div>
-                <div className="form-error">{this.state.descriptionError}</div>
-  </>
-}
+  let inputs;
+  if (this.props.spaceship) {
+    inputs = 
+    <div >
+      <div>
+        <input className="form-input" type="text" name="title" value={title} onChange={this.changeHandler} placeholder="Title"/>
+      </div>
+      <div>
+        <input className="form-input" type="text" name="goal" value={goal} onChange={this.changeHandler} placeholder="Goal"/>
+      </div>
+      <div>
+        <input className="form-input" type="text" name="goal_explanation" value={goal_explanation} onChange={this.changeHandler} placeholder="Goal Explanation"/>
+      </div>
+      <div>
+        <input className="form-input" type="text" name="goal_reason" value={goal_reason} onChange={this.changeHandler} placeholder="Goal Reason"/>
+      </div>
+    </div>
+  } else {
+    inputs =
+    <>
+      <div className="first-input">
+        <input className="form-input" type="text" name="username" value={username} onChange={this.changeHandler}placeholder="Username" />
+      </div>
+      <span className="form-error">{this.state.errors[0]}</span>
+      <div>
+        <input className="form-input" type="text" name="name" value={name} onChange={this.changeHandler}placeholder="Name" />
+      </div>
+      <div className="form-error">{this.state.errors[1]}</div>
+      <div>
+        <input className="form-input" type="text" name="lastname" value={lastname} onChange={this.changeHandler}placeholder="Last name" />
+      </div>
+      <div className="form-error">{this.state.errors[2]}</div>
+      <div>
+        <input className="form-input" type="email" name="email" value={email} onChange={this.changeHandler}placeholder="E-mail" />
+      </div>
+      <div className="form-error">{this.state.errors[3]}</div>
+      <div>
+        <input className={password.class} type="password" name={password.name} value={password.value} onChange={this.changeHandler}placeholder="Password" />
+      </div>
+      <div className="form-error">{this.state.errors[4]}</div>
+      <div>
+        <input className={passwordConfirm.class} type="password" name={passwordConfirm.name} value={passwordConfirm.value} onChange={this.changeHandler}placeholder="Confirm password" />
+      </div>
+      <div className="form-error">{this.state.errors[5]}</div>
+      <div>
+        <input className="form-input description-input" type="textarea" name="description" value={description} onChange={this.changeHandler}placeholder="Description" />
+      </div>
+      <div className="form-error">{this.state.descriptionError}</div>
+    </>
+  }
 
   return (
 
     <form id="form-register" className="form-container" onSubmit={this.props.update?this.submitUpdate:this.submitHandler}>
-            <div className="actual-form">
-            <div className="image-register-container">
-                {updateProfilePicture}
-              </div>
-            <div className="form-register-container">
-              {loginRegisterNav}
-              {inputs}
-              {myButton}
-            </div>
-            </div>
-        </form>
+      <div className="actual-form">
+        <div className="image-register-container">
+            {updateProfilePicture}
+        </div>
+        <div className="form-register-container">
+          {loginRegisterNav}
+          {inputs}
+          {myButton}
+        </div>
+      </div>
+    </form>
   );
 }
 }
