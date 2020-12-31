@@ -89,18 +89,11 @@ function ShopContainer() {
     }
   };
 
-  if (context.token && !context.session.cart) {
-    fetch(context.config.codeshipApi.urlBase + "/user", {
-      method: "GET",
-      headers: { "x-access-token": context.token },
-      cache: 'no-cache'
-    })
-      .then((res) => res.json())
-      .then(({ user }) => {
-        loadProducts(user);
-        context.setSession(user);
-      });
-  }
+  useEffect(() => {
+    if (context.session.cart) {
+      loadProducts(context.session);
+    }
+  }, [context.session])
 
   return (
     <div className="Shop">
