@@ -33,6 +33,7 @@ function App() {
           const tokenSession = e.data;
           sessionStorage.setItem("codeship-token", e.data);
           setToken(tokenSession);
+          updateSession(tokenSession);
         }
       });
       window.opener.postMessage("123", config.codeshipGame.urlBase);
@@ -40,11 +41,25 @@ function App() {
     } else {
       const tokenSession = sessionStorage.getItem("codeship-token");
       setToken(tokenSession);
+      updateSession(tokenSession);
     }
 
     //ask server if token is valid
   }, []);
 
+  const updateSession = (token) => {
+    fetch(config.codeshipApi.urlBase + "/user", {
+      method: "GET",
+      headers: { "x-access-token": token },
+      cache: 'no-cache'
+    })
+    .then((res) => res.json())
+    .then(({ user }) => {
+      if (user) {
+        setSession(user);
+      }
+    });
+  }
 
   return (
     <Context.Provider value={{
