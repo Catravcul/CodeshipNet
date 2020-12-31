@@ -12,11 +12,20 @@ import ButtonsNav from "../components/ButtonsNav"
 function ProfileContainer(){
   const context = useContext(Context)
 
+  const [user, setUser] = useState({})
   const [usersProfilePictures, setUsersProfilePictures] = useState([])
   const [productsImages, setProductsImages] = useState([])
 
   const [updateForm, setUpdateForm] = useState(true)
   
+  const getFetch = (url, callback) => {
+    fetch(url, {method: "GET", cache: 'no-cache'})
+    .then(res => {
+      return res.json();
+    })
+    .then(callback)
+  }
+
   //fetch users
   useEffect(() => {
     fetch(context.config.codeshipApi.urlBase + '/user/all', 
@@ -32,17 +41,15 @@ function ProfileContainer(){
 
   //fetch products
   useEffect( () => {
-    fetch(context.config.codeshipApi.urlBase + '/public/product', 
-    {method: "GET", cache: 'no-cache'})
-    .then(res => {
-      return res.json();
-    })
-    .then(({products}) =>{
-      setProductsImages(products)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+    const userId =  window.location.href.split('/')[4]
+    getFetch(
+      context.config.codeshipApi.urlBase + '/public/user/' + userId,
+      ({user}) => setUser(user)
+    )
+    getFetch(
+      context.config.codeshipApi.urlBase + '/public/product',
+      ({products}) => setProductsImages(products)
+    )
   },[])
   
   //events for profile and spaceship update
