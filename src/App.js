@@ -10,6 +10,10 @@ import ProfileContainer from "./pages/ProfileContainer";
 import RegisterContainer from "./pages/RegisterContainer";
 import LoginContainer from "./pages/LoginContainer";
 
+// import context, config consts
+import { Context } from './components/Context';
+import { getConfig } from './config/config'
+
 //import route path
 import ROUTES from "./utils/routes";
 
@@ -20,16 +24,18 @@ function App() {
   //Logged user data
   const [session, setSession] = useState({});
 
+  const config = getConfig()
+
   useEffect(() => {
     if (window.opener) {
       window.addEventListener("message", (e) => {
-        if (e.origin === "https://codeship-game.herokuapp.com") {
+        if (e.origin === config.codeshipGame.urlBase) {
           const tokenSession = e.data;
           sessionStorage.setItem("codeship-token", e.data);
           setToken(tokenSession);
         }
       });
-      window.opener.postMessage("123", "https://codeship-game.herokuapp.com");
+      window.opener.postMessage("123", config.codeshipGame.urlBase);
       window.opener = null;
     } else {
       const tokenSession = sessionStorage.getItem("codeship-token");
@@ -40,42 +46,36 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path={ROUTES.HOME} exact>
-          <HomeContainer
-            session={session}
-            setSession={setSession}
-            setToken={setToken}
-            token={token}
-          />
-          <Link to={ROUTES.LOGIN}>LOGIN</Link>
-          <Link to={ROUTES.REGISTER}>REGISTER</Link>
-        </Route>
-        <Route path={ROUTES.SHOP} exact>
-          <ShopContainer
-            session={session}
-            setSession={setSession}
-            setToken={setToken}
-            token={token}
-          />
-        </Route>
-        <Route path={ROUTES.PROFILE} exact>
-          <ProfileContainer />
-        </Route>
-        <Route path={ROUTES.REGISTER} exact>
-          <RegisterContainer />
-        </Route>
-        <Route path={ROUTES.LOGIN} exact>
-          <LoginContainer
-            session={session}
-            setSession={setSession}
-            setToken={setToken}
-            token={token}
-          />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Context.Provider value={{
+      config: config,
+      session: session,
+      setSession: setSession,
+      token: token,
+      setToken: setToken,
+      postMessageS: '123'
+    }}>
+      <BrowserRouter>
+        <Switch>
+          <Route path={ROUTES.HOME} exact>
+            <HomeContainer />
+            <Link to={ROUTES.LOGIN}>LOGIN</Link>
+            <Link to={ROUTES.REGISTER}>REGISTER</Link>
+          </Route>
+          <Route path={ROUTES.SHOP} exact>
+            <ShopContainer />
+          </Route>
+          <Route path={ROUTES.PROFILE} exact>
+            <ProfileContainer />
+          </Route>
+          <Route path={ROUTES.REGISTER} exact>
+            <RegisterContainer />
+          </Route>
+          <Route path={ROUTES.LOGIN} exact>
+            <LoginContainer />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </Context.Provider>
   );
 }
 

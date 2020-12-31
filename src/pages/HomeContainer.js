@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../components/Context"
 
-function HomeContainer(props) {
+function HomeContainer() {
+  const context = useContext(Context)
   const playGame = () => {
-    let gameWindow = window.open("https://codeship-game.herokuapp.com/");
+    let gameWindow = window.open(context.config.codeshipGame.urlBase);
     window.onmessage = (e) => {
-      if (e.origin === "https://codeship-game.herokuapp.com") {
-        if (e.data === "123") {
+      if (e.origin === context.config.codeshipGame.urlBase) {
+        if (e.data === context.postMessageS) {
           gameWindow.postMessage(
-            props.token,
-            "https://codeship-game.herokuapp.com"
+            context.token,
+            context.config.codeshipGame.urlBase
           );
         }
       }

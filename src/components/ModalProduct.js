@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from './Context';
 import Modal from "react-modal";
 
 function ModalProduct(props) {
+  const context = useContext(Context)
   const customStyles = {
     content: {
       top: "50%",
@@ -23,7 +25,7 @@ function ModalProduct(props) {
   // show comments
   const getProductComments = () => {
     setComment("");
-    fetch("https://codeship-api.herokuapp.com/public/comment/", {
+    fetch(context.config.codeshipApi.urlBase + "/public/comment/", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -49,7 +51,7 @@ function ModalProduct(props) {
   // create comments
   const addProductComments = (e) => {
     e.preventDefault();
-    fetch("https://codeship-api.herokuapp.com/comment/", {
+    fetch(context.config.codeshipApi.urlBase + "/comment/", {
       headers: {
         "Content-Type": "application/json",
         "x-access-token": props.token,
@@ -72,7 +74,7 @@ function ModalProduct(props) {
       </span>
       <img
         className="imgProduct"
-        src={"https://codeship-api.herokuapp.com/" + props.product.img_path}
+        src={context.config.codeshipApi.urlBase + "/" + props.product.img_path}
       />
       <h3 className="TitleProductModal">{props.product.title}</h3>
       <p className="DescriptionProductModal">{props.product.description}</p>
@@ -91,7 +93,7 @@ function ModalProduct(props) {
           <div className="Comment" key={commentObj.user_id}>
             <img
               className="ImgUser"
-              src={"https://codeship-api.herokuapp.com/" + commentObj.img_path}
+              src={context.config.codeshipApi.urlBase + "/" + commentObj.img_path}
             />
             <p>
               <span>{commentObj.username}</span>

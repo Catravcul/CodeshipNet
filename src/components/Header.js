@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-function Header(props) {
+import { Context } from '../components/Context'
+function Header() {
+  const context = useContext(Context)
+
   var [toggle, setToggle] = useState(false);
   const signOut = () => {
     sessionStorage.setItem("codeship-token", "");
-    props.setSession({});
-    props.setToken("");
+    context.setSession({});
+    context.setToken("");
   };
   let userModal;
   if (toggle) {
     userModal = (
       <div className="ModalProfileSignOut">
         <Link to="/"> Home</Link>
-        {props.session.cart ? (
+        {context.session.cart ? (
           <>
             <Link to="/profile"> Profile</Link>
             <Link to="/login" onClick={signOut}>
@@ -34,15 +37,15 @@ function Header(props) {
         <h1>CODESHIP</h1>
       </Link>
       <div className="infoProfileHeader">
-        {props.session.cart ? (
+        {context.session.cart ? (
           <>
             <div className="infoUserHeader">
-              <h4>{props.session.username}</h4>
-              <p>{props.session.points} coins</p>
+              <h4>{context.session.username}</h4>
+              <p>{context.session.points} coins</p>
             </div>
             <img
               src={
-                "https://codeship-api.herokuapp.com/" + props.session.img_path
+                context.config.codeshipApi.urlBase + "/" + context.session.img_path
               }
             ></img>
           </>

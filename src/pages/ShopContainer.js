@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,11 @@ import ShoppingCart from "../components/ShoppingCart";
 import TopSpaceShip from "../components/TopSpaceShip";
 import Header from "../components/Header";
 
-function ShopContainer(props) {
+import { Context } from '../components/Context'
+
+function ShopContainer() {
+  const context = useContext(Context)
+
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -39,8 +43,8 @@ function ShopContainer(props) {
     if (products.length > 0) {
       loadCart(user, products);
     } else {
-      fetch("https://codeship-api.herokuapp.com/public/product", {
-        method: "GET",
+      fetch(context.config.codeshipApi.urlBase + "/public/product", {
+        method: "GET", cache: 'no-cache'
       })
         .then((res) => res.json())
         .then(({ products }) => {
@@ -85,25 +89,22 @@ function ShopContainer(props) {
     }
   };
 
-  if (props.token && !props.session.cart) {
-    fetch("https://codeship-api.herokuapp.com/user", {
+  if (context.token && !context.session.cart) {
+    fetch(context.config.codeshipApi.urlBase + "/user", {
       method: "GET",
-      headers: { "x-access-token": props.token },
+      headers: { "x-access-token": context.token },
+      cache: 'no-cache'
     })
       .then((res) => res.json())
       .then(({ user }) => {
         loadProducts(user);
-        props.setSession(user);
+        context.setSession(user);
       });
   }
 
   return (
     <div className="Shop">
-      <Header
-        setSession={props.setSession}
-        setToken={props.setToken}
-        session={props.session}
-      />
+      <Header />
       <div className="ShopContainer">
         <div className="LeftContainer">
           <SelectProduct
@@ -120,8 +121,6 @@ function ShopContainer(props) {
                 cart={cart}
                 products={products}
                 setCart={setCart}
-                token={props.token}
-                session={props.session}
               ></ProductCard>
             ))}
           </div>
@@ -137,19 +136,10 @@ function ShopContainer(props) {
           </div>
         </div>
         <div className="RightContainer">
-          <TopSpaceShip></TopSpaceShip>
-          {cart.length > 0 ? (
-            <ShoppingCart
-              session={props.session}
-              token={props.token}
-              cart={cart}
-              setCart={setCart}
-              allProducts={allProducts}
-              setSession={props.setSession}
-            ></ShoppingCart>
-          ) : (
-            <div></div>
-          )}
+          <TopSpaceShip />
+          {cart.length > 0 ? 
+            <ShoppingCart cart={cart} setCart={setCart} allProducts={allProducts} /> : ''
+          }
         </div>
       </div>
     </div>

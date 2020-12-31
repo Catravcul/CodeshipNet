@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Modal from "react-modal";
+import { Context } from './Context'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import Paypal from "./Paypal";
 
 function ShoppingCart(props) {
+  const context = useContext(Context)
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const [coins, setCoins] = useState(0);
@@ -32,18 +35,18 @@ function ShoppingCart(props) {
     cart.splice(productIndex, 1);
     props.setCart([...cart]);
     if (cart.length === 0) {
-      fetch("https://codeship-api.herokuapp.com/user", {
+      fetch(context.codeshipApi.urlBase + "/user", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "x-access-token": props.token,
+          "x-access-token": context.token,
         },
         body: JSON.stringify({ cart: [] }),
       })
         .then((res) => res.json())
         .then((data) => {
           sessionStorage.setItem("codeship-session", JSON.stringify(data.user));
-          props.setSession(data.user);
+          context.setSession(data.user);
         });
     }
   };
@@ -60,18 +63,18 @@ function ShoppingCart(props) {
   const saveCart = () => {
     const itemsID = props.cart.map((item) => item._id);
     const body = { cart: itemsID };
-    fetch("https://codeship-api.herokuapp.com/user", {
+    fetch(context.codeshipApi.urlBase + "/user", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": props.token,
+        "x-access-token": context.token,
       },
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
       .then((data) => {
         sessionStorage.setItem("codeship-session", JSON.stringify(data.user));
-        props.setSession(data.user);
+        context.setSession(data.user);
       });
   };
 
@@ -80,7 +83,7 @@ function ShoppingCart(props) {
       <h1>CART</h1>
       {props.cart.map((product, index) => (
         <div key={index} className="ShoppingProducts">
-          <img src={"https://codeship-api.herokuapp.com/" + product.img_path} />
+          <img src={context.config.codeshipApi.urlBase + "/" + product.img_path} />
           <div className="ShoppingProductsInfo">
             <h3>{product.title}</h3>
             <p>{product.price} coins</p>
@@ -104,24 +107,24 @@ function ShoppingCart(props) {
 
         <button
           onClick={() => {
-            if (totalPrice > props.session.points) {
+            if (totalPrice > context.session.points) {
               setModalIsOpen(true);
             } else {
-              fetch("https://codeship-api.herokuapp.com/user", {
+              fetch(context.config.codeshipApi.urlBase + "/user", {
                 method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
-                  "x-access-token": props.token,
+                  "x-access-token": context.token,
                 },
                 body: JSON.stringify({
-                  points: props.session.points - totalPrice,
+                  points: context.session.points - totalPrice,
                   cart: [],
-                  items: props.session.items.concat(getCartIds()),
+                  items: context.session.items.concat(getCartIds()),
                 }),
               })
                 .then((res) => res.json())
                 .then(({ user }) => {
-                  props.setSession(user);
+                  context.setSession(user);
                   props.setCart([]);
                 });
             }
@@ -140,12 +143,7 @@ function ShoppingCart(props) {
               X
             </span>
             <p onClick={() => setCheckout(false)}>BACK</p>
-            <Paypal
-              setSession={props.setSession}
-              session={props.session}
-              token={props.token}
-              coins={coins}
-            />
+            <Paypal coins={coins} />
           </>
         ) : (
           <div className="CoinsContainer">

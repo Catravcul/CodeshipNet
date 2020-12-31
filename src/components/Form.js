@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import axios from 'axios';
+import { Context } from './Context'
 
 const initialState = {
   username: "",
@@ -109,7 +109,7 @@ class Form extends Component {
     if(isValid) {
       console.log(this.state)
       const body = new FormData(document.getElementById('form-register'));
-      fetch('https://codeship-api.herokuapp.com/public/user',{method: "PUT", body: body})
+      fetch(this.context.config.codeshipApi.urlBase + '/public/user',{method: "PUT", body: body})
       .then(response => {
         return response.json() //or .text you get a string
       }).then(data => {
@@ -130,7 +130,7 @@ class Form extends Component {
       console.log(this.state)
       const token = sessionStorage.getItem("codeship-token")
       const body = new FormData(document.getElementById('form-register'));
-      fetch('https://codeship-api.herokuapp.com/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
+      fetch(this.context.config.codeshipApi.urlBase + '/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
 
       .then(response => {
         return response.json()
@@ -266,5 +266,7 @@ if(this.props.spaceship){
   );
 }
 }
+
+Form.contextType = Context
 
 export default Form;

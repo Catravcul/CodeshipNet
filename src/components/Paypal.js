@@ -1,6 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
+import { Context } from './Context'
 
 export default function Paypal(props) {
+  const context = useContext(Context)
+
   const paypal = useRef();
   useEffect(() => {
     window.paypal
@@ -21,18 +24,18 @@ export default function Paypal(props) {
         },
         onApprove: async (data, action) => {
           const order = await action.order.capture();
-          fetch("https://codeship-api.herokuapp.com/user", {
+          fetch(context.config.codeshipApi.urlBase + "/user", {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
-              "x-access-token": props.token,
+              "x-access-token": context.token,
             },
             body: JSON.stringify({
-              points: props.coins + props.session.points,
+              points: props.coins + context.session.points,
             }),
           })
             .then((res) => res.json())
-            .then(({ user }) => props.setSession(user));
+            .then(({ user }) => context.setSession(user));
         },
         onError: (err) => {
           console.log(err);

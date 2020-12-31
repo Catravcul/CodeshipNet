@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Carousel from 'react-elastic-carousel';
 import Item from "./Item";
-// import axios from "axios";
+import { Context } from "../components/Context"
 
 const breakPoints = [
     { width: 1, itemsToShow: 6 }
@@ -11,28 +11,32 @@ const breakPoints = [
   ];
 
 class Slider extends Component{
-    // state = {
-    //     usersProfilePictures: []
-    // };
+  // state = {
+  //     usersProfilePictures: []
+  // };
 
-    styles = {
-        width:100,
-        height: 100
-    };
+  styles = {
+      width:100,
+      height: 100
+  };
 
-      render(){
-            return (
+  render(){
+    return (
+  
+      <div className="carousel-container">
+        <Carousel breakPoints={breakPoints}>
+          {this.props.items ? this.props.items.map(
+              item => <Item key={item.id}>
+                        <img style={this.styles} src={this.context.config.codeshipApi.urlBase + '/' + item.img_path} alt={item.title} />
+                      </Item>
+            ): null}
+        </Carousel>
+      </div>
+    );
+  }
+}
 
-                <div className="carousel-container">
-                <Carousel breakPoints={breakPoints}>
-
-                {this.props.items.length ? this.props.items.map(image => <Item key={image.id}><img style={this.styles} src={"https://codeship-api.herokuapp.com/" + image.img_path} alt={image.title}></img></Item>): null}
-                </Carousel>
-              </div>
-                );
-             }
-      }
-
+Slider.contextType = Context;
       
 export default Slider;
 

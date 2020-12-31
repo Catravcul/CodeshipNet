@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-// import axios from "axios"
-
+import { Context } from './Context'
 
 const initialState = {
   username: "",
@@ -12,8 +11,8 @@ class LoginForm extends Component{
   state = initialState
 
   loginSessionTest(){ 
-    if(this.props.token){
-      window.location.href = 'http://localhost:3000/profile'
+    if(this.context.token){
+      window.location.href = '/profile'
     }
   }
 
@@ -24,15 +23,20 @@ changeLoginHandler = e => {
 handleLoginSubmit = e => {
   e.preventDefault();
 
-  fetch('https://codeship-api.herokuapp.com/public/user',{method: "POST", body: JSON.stringify(this.state), headers: {"Content-Type": "application/json"}})
+  fetch( this.context.config.codeshipApi.urlBase + '/public/user',{
+    method: "POST", 
+    body: JSON.stringify(this.state), 
+    headers: {"Content-Type": "application/json"},
+    cache: 'no-cache'
+  })
   .then(res => {
     return res.json()
   })
   .then(data => {
     //saving token and user values in sessionStorage
     sessionStorage.setItem("codeship-token", data.token)
-    this.props.setToken(data.token)
-    this.props.setSession(data.user)
+    this.context.setToken(data.token)
+    this.context.setSession(data.user)
   })
   .catch(err => {
     console.log(err)
@@ -60,4 +64,5 @@ handleLoginSubmit = e => {
 }
 }
 
+LoginForm.contextType = Context
 export default LoginForm;
