@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ModalProduct from "./ModalProduct";
-import { getSpaceshipConfig } from "../config/config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-const config = getSpaceshipConfig();
+import { Context } from "./Context"
 
 // install npm font awesome
 //npm i --save @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons
 function ProductCard(props) {
+  const context = useContext(Context)
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const addProduct = (id) => {
@@ -22,7 +22,7 @@ function ProductCard(props) {
     <div className="ProductCard">
       <img
         onClick={() => setModalIsOpen(true)}
-        src={"https://codeship-api.herokuapp.com/" + props.product.img_path}
+        src={context.config.codeshipApi.urlBase + "/" + props.product.img_path}
       />
       <div className="ContainerInfoCard">
         <h3> {props.product.title} </h3>
@@ -30,12 +30,12 @@ function ProductCard(props) {
           {props.product.price}
           coins
         </p>
-        {props.session.cart ? (
+        {context.session.cart ? (
           <FontAwesomeIcon
             icon={faPlusCircle}
             onClick={() => {
               if (
-                props.session.items.findIndex(
+                context.session.items.findIndex(
                   (id) => id === props.product._id
                 ) === -1 &&
                 props.cart.findIndex(
@@ -52,7 +52,7 @@ function ProductCard(props) {
         )}
       </div>
       <ModalProduct
-        token={props.token}
+        token={context.token}
         product={props.product}
         setModalIsOpen={setModalIsOpen}
         modalIsOpen={modalIsOpen}
