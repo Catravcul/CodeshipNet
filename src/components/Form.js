@@ -104,11 +104,9 @@ class Form extends Component {
   //submit handler
   submitHandler = e => {
     e.preventDefault()
-    console.log(this.validate())
     const isValid = this.validate();
 
-    if(isValid) {
-      console.log(this.state)
+    if (isValid) {
       const body = new FormData(document.getElementById('form-register'));
       fetch(this.context.config.codeshipApi.urlBase + '/public/user',{method: "PUT", body: body})
       .then(response => {
@@ -128,7 +126,6 @@ class Form extends Component {
     e.preventDefault()
     const isValid = this.validate();
     if(isValid) {
-      console.log(this.state)
       const token = sessionStorage.getItem("codeship-token")
       const body = new FormData(document.getElementById('form-register'));
       fetch(this.context.config.codeshipApi.urlBase + '/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
@@ -193,9 +190,11 @@ class Form extends Component {
 
   let updateProfilePicture;
   if (this.props.update) {
+    let imgSrc = profileImage;
+    if (this.props.user) if (this.props.user.img_path) imgSrc = this.context.config.codeshipApi.urlBase + '/' + this.props.user.img_path
     updateProfilePicture =
     <div className="updateProfileImg">
-      <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
+      <img id="register-img" src={imgSrc} alt="this is a profile picture"></img>
       <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
       <div>
         <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
