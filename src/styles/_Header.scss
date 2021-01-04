@@ -1,63 +1,87 @@
-header{
-    background-color: yellow;
-    display:flex;
+header {
+  background-color: yellow;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 3px;
+  a {
+    text-decoration: none;
+
+    h1 {
+      color: #333333;
+      margin-left: 80px;
+      font-size: 25px;
+    }
+  }
+  .infoProfileHeader {
+    display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    padding-bottom: 3px;
-    h1{
-        margin-left: 80px;
-        font-size: 25px;
+    margin-right: 80px;
+    .infoUserHeader {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      line-height: 5px;
+      h4 {
+        margin-bottom: 5px;
+        font-size: 15px;
+      }
+      p {
+        font-weight: bold;
+        font-size: 10px;
+      }
     }
-    .infoProfileHeader{
-        display:flex;
-        flex-direction:row;
-        align-items: center;
-        margin-right: 80px;
-        .infoUserHeader{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            line-height: 5px;
-            h4{
-                font-size: 15px;
-            }
-            p{
-                font-weight: bold;
-                font-size: 10px;
 
-            }
-        }
+    img {
+      margin-left: 20px;
+      margin-right: 20px;
+      width: 40px;
+      height: 40px;
 
-        img{
-            margin-left: 20px;
-            margin-right: 20px;
-            width: 40px;
-            height: 40px;
-
-            border-radius: 50%;
-        }
+      border-radius: 50%;
     }
-    .ModalProfileSignOut{
-        display: flex;
-        flex-direction: column;
-        // visibility: hidden;
-        position: absolute;
-        left: 1335px;
-        top: 62px;
-        background-color: yellow;
-        width: 80px;
-        padding: 10px;
-        border-radius: 0px 0px 5px 5px;
-        line-height: 23px;
+  }
+  .ModalProfileSignOut {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 4%;
+    top: 62px;
+    background-color: yellow;
+    width: 80px;
+    padding: 10px;
+    border-radius: 0px 0px 5px 5px;
+    line-height: 23px;
 
-        a{
-            text-decoration: none;
-            color: black;
-        }
-        a:hover{
-            color: rgb(73, 72, 72);
-        }
+    a {
+      text-decoration: none;
+      color: black;
     }
-    
+    a:hover {
+      color: rgb(73, 72, 72);
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  header {
+    h1 {
+      margin-left: 20px;
+    }
+    .infoProfileHeader {
+      margin-right: 20px;
+      .infoUserHeader {
+        line-height: 5px;
+
+        h4 {
+          font-size: 10px;
+        }
+        p {
+          font-size: 8px;
+        }
+      }
+    }
+  }
 }

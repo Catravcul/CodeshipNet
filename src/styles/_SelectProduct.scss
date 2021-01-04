@@ -1,11 +1,12 @@
 .SelectProduct {
   margin-top: 20px;
-  margin-left: 77px;
+  text-align: center;
   select {
     width: 230px;
     color: yellow;
     background: transparent;
     border: 1px solid yellow;
+    border-radius: 5px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
