@@ -1,22 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from './Context';
+import { Context } from "./Context";
 import Modal from "react-modal";
 
 function ModalProduct(props) {
-  const context = useContext(Context)
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "none",
-      backgroundColor: "black",
-      border: "none",
-      inset: "10% auto auto 50%",
-    },
-  };
+  const context = useContext(Context);
+
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   useEffect(() => {
@@ -68,7 +56,7 @@ function ModalProduct(props) {
     setComment(e.currentTarget.value);
   };
   return (
-    <Modal style={customStyles} className="modal" isOpen={props.modalIsOpen}>
+    <Modal className="modal" isOpen={props.modalIsOpen}>
       <span className="closeModal" onClick={() => props.setModalIsOpen(false)}>
         X
       </span>
@@ -93,10 +81,12 @@ function ModalProduct(props) {
           <div className="Comment" key={commentObj.user_id}>
             <img
               className="ImgUser"
-              src={context.config.codeshipApi.urlBase + "/" + commentObj.img_path}
+              src={
+                context.config.codeshipApi.urlBase + "/" + commentObj.img_path
+              }
             />
             <p>
-              <span>{commentObj.username}</span>
+              <span>{commentObj.username}</span> &nbsp;
               {commentObj.comment}
             </p>
           </div>
