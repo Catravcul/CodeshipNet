@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import Modal from "react-modal";
-import { Context } from './Context'
+import { Context } from "./Context";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import Paypal from "./Paypal";
 
 function ShoppingCart(props) {
-  const context = useContext(Context)
+  const context = useContext(Context);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [checkout, setCheckout] = useState(false);
@@ -63,7 +63,7 @@ function ShoppingCart(props) {
   const saveCart = () => {
     const itemsID = props.cart.map((item) => item._id);
     const body = { cart: itemsID };
-    fetch(context.codeshipApi.urlBase + "/user", {
+    fetch(context.config.codeshipApi.urlBase + "/user", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,9 @@ function ShoppingCart(props) {
       <h1>CART</h1>
       {props.cart.map((product, index) => (
         <div key={index} className="ShoppingProducts">
-          <img src={context.config.codeshipApi.urlBase + "/" + product.img_path} />
+          <img
+            src={context.config.codeshipApi.urlBase + "/" + product.img_path}
+          />
           <div className="ShoppingProductsInfo">
             <h3>{product.title}</h3>
             <p>{product.price} coins</p>
@@ -99,39 +101,41 @@ function ShoppingCart(props) {
         <h3>Total:</h3>
         <p>&nbsp;{getTotalPrice()} coins</p>
       </div>
-      <div className="SaveButton">
-        <button onClick={saveCart}>SAVE CART</button>
-      </div>
-      <div className="BuyButton">
-        {/* <button onClick={() => setModalIsOpen(true)}>BUY</button> */}
+      <div className="ButtonsShop">
+        <div className="SaveButton">
+          <button onClick={saveCart}>SAVE CART</button>
+        </div>
+        <div className="BuyButton">
+          {/* <button onClick={() => setModalIsOpen(true)}>BUY</button> */}
 
-        <button
-          onClick={() => {
-            if (totalPrice > context.session.points) {
-              setModalIsOpen(true);
-            } else {
-              fetch(context.config.codeshipApi.urlBase + "/user", {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  "x-access-token": context.token,
-                },
-                body: JSON.stringify({
-                  points: context.session.points - totalPrice,
-                  cart: [],
-                  items: context.session.items.concat(getCartIds()),
-                }),
-              })
-                .then((res) => res.json())
-                .then(({ user }) => {
-                  context.setSession(user);
-                  props.setCart([]);
-                });
-            }
-          }}
-        >
-          BUY
-        </button>
+          <button
+            onClick={() => {
+              if (totalPrice > context.session.points) {
+                setModalIsOpen(true);
+              } else {
+                fetch(context.config.codeshipApi.urlBase + "/user", {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": context.token,
+                  },
+                  body: JSON.stringify({
+                    points: context.session.points - totalPrice,
+                    cart: [],
+                    items: context.session.items.concat(getCartIds()),
+                  }),
+                })
+                  .then((res) => res.json())
+                  .then(({ user }) => {
+                    context.setSession(user);
+                    props.setCart([]);
+                  });
+              }
+            }}
+          >
+            BUY
+          </button>
+        </div>
       </div>
       <Modal style={customStyles} className="modal" isOpen={modalIsOpen}>
         <span className="closeModal" onClick={() => setModalIsOpen(false)}>

@@ -2,12 +2,12 @@ import React, { useState, useContext } from "react";
 import ModalProduct from "./ModalProduct";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { Context } from "./Context"
+import { Context } from "./Context";
 
 // install npm font awesome
 //npm i --save @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons
 function ProductCard(props) {
-  const context = useContext(Context)
+  const context = useContext(Context);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const addProduct = (id) => {
@@ -28,7 +28,7 @@ function ProductCard(props) {
         <h3> {props.product.title} </h3>
         <p>
           {props.product.price}
-          coins
+          &nbsp; coins
         </p>
         {context.session.cart ? (
           <FontAwesomeIcon
