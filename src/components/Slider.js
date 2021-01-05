@@ -20,15 +20,25 @@ class Slider extends Component{
       height: 100
   };
 
+  visitProfile = ({_id}) => {
+    window.location.href = '/profile/' + _id
+  }
+
   render(){
+    const urlBase = this.context.config.codeshipFS.urlBase
+    let clickEvent, nameProp
+    if (this.props.users) {
+      clickEvent = this.visitProfile
+      nameProp = 'username'
+    }
     return (
-  
       <div className="carousel-container">
         <Carousel breakPoints={breakPoints}>
           {this.props.items ? this.props.items.map(
-              item => <Item key={item.id}>
-                        <img style={this.styles} src={this.context.config.codeshipFS.urlBase + item.img_path} alt={item.title} />
-                      </Item>
+              item => 
+                <Item key={item._id}>
+                  <img style={this.styles} src={urlBase + item.img_path} alt={item[nameProp]} onClick={() => clickEvent(item)}/>
+                </Item>
             ): null}
         </Carousel>
       </div>
