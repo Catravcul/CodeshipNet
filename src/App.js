@@ -11,11 +11,14 @@ import RegisterContainer from "./pages/RegisterContainer";
 import LoginContainer from "./pages/LoginContainer";
 
 // import context, config consts
-import { Context } from './components/Context';
-import { getConfig } from './config/config'
+import { Context } from "./components/Context";
+import { getConfig } from "./config/config";
 
 //import route path
 import ROUTES from "./utils/routes";
+
+//img background
+import tunnel from "./assets/tunnel-4427837_1280.jpg";
 
 function App() {
   //hash sent through fetch to access private routes
@@ -24,7 +27,7 @@ function App() {
   //Logged user data
   const [session, setSession] = useState({});
 
-  const config = getConfig()
+  const config = getConfig();
 
   useEffect(() => {
     if (window.opener) {
@@ -43,33 +46,35 @@ function App() {
       setToken(tokenSession);
       updateSession(tokenSession);
     }
-
-    //ask server if token is valid
+    document.getElementsByTagName("body")[0].style.backgroundImage =
+      'url("' + tunnel + '")';
   }, []);
 
   const updateSession = (token) => {
     fetch(config.codeshipApi.urlBase + "/user", {
       method: "GET",
       headers: { "x-access-token": token },
-      cache: 'no-cache'
+      cache: "no-cache",
     })
-    .then((res) => res.json())
-    .then(({ user }) => {
-      if (user) {
-        setSession(user);
-      }
-    });
-  }
+      .then((res) => res.json())
+      .then(({ user }) => {
+        if (user) {
+          setSession(user);
+        }
+      });
+  };
 
   return (
-    <Context.Provider value={{
-      config: config,
-      session: session,
-      setSession: setSession,
-      token: token,
-      setToken: setToken,
-      postMessageS: '123'
-    }}>
+    <Context.Provider
+      value={{
+        config: config,
+        session: session,
+        setSession: setSession,
+        token: token,
+        setToken: setToken,
+        postMessageS: "123",
+      }}
+    >
       <BrowserRouter>
         <Switch>
           <Route path={ROUTES.HOME} exact>
@@ -78,7 +83,7 @@ function App() {
           <Route path={ROUTES.SHOP} exact>
             <ShopContainer />
           </Route>
-          <Route path={ROUTES.PROFILE} >
+          <Route path={ROUTES.PROFILE}>
             <ProfileContainer />
           </Route>
           <Route path={ROUTES.REGISTER} exact>
