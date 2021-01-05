@@ -111,14 +111,8 @@ class Form extends Component {
       fetch(this.context.config.codeshipApi.urlBase + '/public/user',{method: "PUT", body: body})
       .then(response => {
         return response.json() //or .text you get a string
-      }).then(data => {
-        console.log(data)
-      })
-      .catch(error=> {
-        console.log(error)
-      })
-      //clear Form if it's valid
-      this.setState(initialState);
+      }).then(() => {window.location.href = '/login'})
+      .catch(error=> console.log(error))
     }
    }
    
@@ -131,14 +125,12 @@ class Form extends Component {
       fetch(this.context.config.codeshipApi.urlBase + '/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
         .then(response => {
         return response.json()
-      }).then(data =>{
-        console.log(data)
+      }).then(({user}) =>{
+        this.context.setSession(user)
       })
       .catch(error=> {
         console.log(error)
       })
-      //clear Form if it's valid
-      this.setState(initialState);
     }
    }
 
