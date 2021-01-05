@@ -67,11 +67,11 @@ header {
 
 @media (max-width: 550px) {
   header {
-    h1 {
-      margin-left: 20px;
+    a h1 {
+      margin-left: 10px;
     }
     .infoProfileHeader {
-      margin-right: 20px;
+      margin-right: 10px;
       .infoUserHeader {
         line-height: 5px;
 
