@@ -35,7 +35,7 @@ function ShoppingCart(props) {
     cart.splice(productIndex, 1);
     props.setCart([...cart]);
     if (cart.length === 0) {
-      fetch(context.codeshipApi.urlBase + "/user", {
+      fetch(context.config.codeshipApi.urlBase + "/user", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
