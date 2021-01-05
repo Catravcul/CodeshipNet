@@ -27,7 +27,7 @@ class Slider extends Component{
         <Carousel breakPoints={breakPoints}>
           {this.props.items ? this.props.items.map(
               item => <Item key={item.id}>
-                        <img style={this.styles} src={this.context.config.codeshipApi.urlBase + '/' + item.img_path} alt={item.title} />
+                        <img style={this.styles} src={this.context.config.codeshipFS.urlBase + item.img_path} alt={item.title} />
                       </Item>
             ): null}
         </Carousel>

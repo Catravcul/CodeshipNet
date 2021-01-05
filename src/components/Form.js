@@ -183,7 +183,7 @@ class Form extends Component {
   let updateProfilePicture;
   if (this.props.update) {
     let imgSrc = profileImage;
-    if (this.props.user) if (this.props.user.img_path) imgSrc = this.context.config.codeshipApi.urlBase + '/' + this.props.user.img_path
+    if (this.props.user) if (this.props.user.img_path) imgSrc = this.context.config.codeshipFS.urlBase + this.props.user.img_path
     updateProfilePicture =
     <div className="updateProfileImg">
       <img id="register-img" src={imgSrc} alt="this is a profile picture"></img>
