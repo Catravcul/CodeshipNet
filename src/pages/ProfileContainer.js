@@ -82,7 +82,7 @@ function ProfileContainer(){
             </div>
             <div className="profile-info-container">
                 <div className="users-container">
-                    <Slider items={usersProfilePictures}></Slider>
+                    <Slider users={true} items={usersProfilePictures}></Slider>
                 </div>
                 <div className="profile-spaceship-info">
                     <div className="profile-spaceship-details">
