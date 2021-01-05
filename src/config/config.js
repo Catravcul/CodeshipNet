@@ -6,6 +6,9 @@ const development = {
     }, 
     codeshipGame: {
         urlBase: 'http://127.0.0.1:3000'
+    },
+    codeshipFS: {
+        urlBase: 'http://127.0.0.1:7000'
     }
 }
 const test = {
@@ -14,6 +17,9 @@ const test = {
     }, 
     codeshipGame: {
         urlBase: 'http://127.0.0.1:3000'
+    },
+    codeshipFS: {
+        urlBase: 'http://127.0.0.1:7000'
     }
 }
 const production = {
@@ -22,6 +28,9 @@ const production = {
     }, 
     codeshipGame: {
         urlBase: 'https://codeship-game.herokuapp.com'
+    },
+    codeshipFS: {
+        urlBase: 'https://codeship-fs.herokuapp.com'
     }
 }
     
