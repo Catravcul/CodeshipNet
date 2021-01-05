@@ -16,7 +16,7 @@ const initialState = {
   },
   passwordConfirm: {
     class:'form-input',
-    name:'confirmPassword',
+    name:'passwordConfirm',
     value:''
   },
   title: "",
@@ -47,7 +47,12 @@ class Form extends Component {
   
   //track the change of input values and keep in sync with the state object
   changeHandler = e => {
-    this.setState({[e.target.name]: e.target.value})
+    const {currentTarget:{name, value}} = e
+    if (name.search('password') >= 0) {
+      this.setState({[name]: {value: value, name: name, class: 'form-input'}})
+    } else {
+      this.setState({[name]: value})
+    }
   }
 
   //form validation
@@ -111,7 +116,9 @@ class Form extends Component {
       fetch(this.context.config.codeshipApi.urlBase + '/public/user',{method: "PUT", body: body})
       .then(response => {
         return response.json() //or .text you get a string
-      }).then(() => {window.location.href = '/login'})
+      }).then(() => {
+        this.fetchUpdate(this.context.config.codeshipFS.urlBase + '/user', body);
+      })
       .catch(error=> console.log(error))
     }
    }
