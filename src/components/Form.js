@@ -121,19 +121,17 @@ class Form extends Component {
     const isValid = this.validate();
     if (isValid) {
       const body = new FormData(document.getElementById('form-register'));
-      this.fetchUpdate(this.context.config.codeshipApi.urlBase + '/user', ({user, err}) => err ? alert(err) : this.context.setSession(user), body)
-      // this.fetchUpdate(this.context.config.codeshipFS.urlBase + '/user', ({user, err}) => this.context.setSession(user), body)
+      this.fetchUpdate(this.context.config.codeshipApi.urlBase + '/user', body);
+      this.fetchUpdate(this.context.config.codeshipFS.urlBase + '/user', body);
     }
   }
   
-  fetchUpdate = (url, callback, body) => {
+  fetchUpdate = (url, body) => {
     fetch(url, {method: "PATCH", body, headers:{"x-access-token":this.context.token}})
     .then(response => {
     return response.json()
-    }).then(callback)
-    .catch(error=> {
-      console.log(error)
-    })
+    }).then(({user, err}) => err ? console.log(err) : this.context.setSession(user), body)
+    .catch(error => console.log(error))
   }
     
   profileImgHandler = (e) =>{
@@ -189,7 +187,7 @@ class Form extends Component {
     updateProfilePicture =
     <div className="updateProfileImg">
       <img id="register-img" src={imgSrc} alt="this is a profile picture"></img>
-      <input className="form-input hide-uplaod-img" type="file" accept="image/*" name="img" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+      <input className="form-input hide-uplaod-img" id="image" type="file" accept="image/*" name="img" onChange={this.profileImgHandler} placeholder="Upload a profile picture"></input>
       <div>
         <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
       </div>
@@ -198,7 +196,7 @@ class Form extends Component {
     updateProfilePicture =
     <div className="img-holder">
       <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
-      <input className="form-input hide-uplaod-img" type="file" accept="image/*" name="img" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+      <input className="form-input hide-uplaod-img" id="image" type="file" accept="image/*" name="img" onChange={this.profileImgHandler} placeholder="Upload a profile picture"></input>
       <div>
         <label className="upload-img-btn" htmlFor="image"> <i class="fas fa-file-image"></i> Upload a Profile Image</label>
       </div>
