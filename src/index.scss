@@ -1,4 +1,5 @@
 @import "./styles/SelectProduct";
+@import "./styles/Codeship";
 @import "./styles/ProductCard";
 @import "./styles/ShopContainer";
 @import "./styles/TopSpaceShip";
@@ -9,21 +10,9 @@
 @import "./sass/profile.scss";
 @import "./sass/navButtons.scss";
 @import "./sass/loginForm.scss";
-body {
-  margin: 0;
+
+html {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: url("./assets/tunnel-4427837_1280.jpg");
-  background-size: cover;
-  background-repeat: none;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
