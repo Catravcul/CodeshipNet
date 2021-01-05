@@ -10,10 +10,10 @@ import ShoppingCart from "../components/ShoppingCart";
 import TopSpaceShip from "../components/TopSpaceShip";
 import Header from "../components/Header";
 
-import { Context } from '../components/Context'
+import { Context } from "../components/Context";
 
 function ShopContainer() {
-  const context = useContext(Context)
+  const context = useContext(Context);
 
   const [products, setProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
@@ -40,11 +40,12 @@ function ShopContainer() {
   };
 
   const loadProducts = (user) => {
-    if (products.length > 0) {
-      loadCart(user, products);
+    if (allProducts.length > 0) {
+      loadCart(user, allProducts);
     } else {
       fetch(context.config.codeshipApi.urlBase + "/public/product", {
-        method: "GET", cache: 'no-cache'
+        method: "GET",
+        cache: "no-cache",
       })
         .then((res) => res.json())
         .then(({ products }) => {
@@ -58,17 +59,18 @@ function ShopContainer() {
   };
   const loadCart = (user, items) => {
     const cartItems = [];
+    console.log(items);
     user.cart.forEach((id) => {
       let index = -1;
       for (let i in items) {
-        if (items[i]._id == id) {
+        if (items[i]._id === id) {
           index = i;
           cartItems.push(items[index]);
           break;
         }
       }
     });
-    setCart(cartItems);
+    setCart((prevState) => cartItems);
   };
   const clickPaginationNext = () => {
     if (pagination.length - 1 > page) {
@@ -93,7 +95,7 @@ function ShopContainer() {
     if (context.session.cart) {
       loadProducts(context.session);
     }
-  }, [context.session])
+  }, [context.session]);
 
   return (
     <div className="Shop">
@@ -130,9 +132,15 @@ function ShopContainer() {
         </div>
         <div className="RightContainer">
           <TopSpaceShip />
-          {cart.length > 0 ? 
-            <ShoppingCart cart={cart} setCart={setCart} allProducts={allProducts} /> : ''
-          }
+          {cart.length > 0 ? (
+            <ShoppingCart
+              cart={cart}
+              setCart={setCart}
+              allProducts={allProducts}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
