@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useContext } from "react";
-import { Context } from './Context'
+import { Context } from "./Context";
 
 export default function Paypal(props) {
-  const context = useContext(Context)
+  const context = useContext(Context);
 
   const paypal = useRef();
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function Paypal(props) {
   }, []);
   return (
     <div>
-      <div ref={paypal}></div>
+      <div className="PayPal-buttons" ref={paypal}></div>
     </div>
   );
 }
