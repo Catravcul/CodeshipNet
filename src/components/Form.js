@@ -116,7 +116,9 @@ class Form extends Component {
       fetch(this.context.config.codeshipApi.urlBase + '/public/user',{method: "PUT", body: body})
       .then(response => {
         return response.json() //or .text you get a string
-      }).then(() => {
+      }).then(({token}) => {
+        this.context.token = token
+        this.context.setToken(token)
         this.fetchUpdate(this.context.config.codeshipFS.urlBase + '/user', body);
       })
       .catch(error=> console.log(error))
