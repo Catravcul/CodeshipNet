@@ -1,11 +1,4 @@
 .HomeContainer {
-  // background-image: url("https://media.gettyimages.com/videos/spaceship-gate-opening-video-id146126228?s=640x640");
-  // background-image: url("../assets/tunnel-4427837_1280.jpg");
-  // background-attachment: scroll;
-  // width: 100vw;
-  // height: 100vh;
-  // background-size: cover;
-  // background-repeat: none;
   .FlexboxHome {
     padding-top: 50px;
     display: flex;
@@ -115,6 +108,24 @@
 
       h1:hover {
         color: yellow;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .HomeContainer {
+    .FlexboxHome {
+      flex-direction: column;
+      align-items: center;
+      .ProfileHome {
+        width: 45%;
+      }
+      .PlayHome {
+        width: 45%;
+      }
+      .ShopHome {
+        width: 45%;
       }
     }
   }
