@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import Carousel from 'react-elastic-carousel';
 import Item from "./Item";
-import { Context } from "../components/Context"
+import { Context } from '../components/Context'
+import ModalProduct from './ModalProduct'
 
 const breakPoints = [
     { width: 1, itemsToShow: 6 }
@@ -11,9 +12,13 @@ const breakPoints = [
   ];
 
 class Slider extends Component{
-  // state = {
-  //     usersProfilePictures: []
-  // };
+  state = {
+      modalIsOpen: false,
+      item: {}
+  };
+
+  
+  setModalIsOpen = state => this.setState({modalIsOpen: state});
 
   styles = {
       width:100,
@@ -24,23 +29,38 @@ class Slider extends Component{
     window.location.href = '/profile/' + _id
   }
 
+  showModal = item => {
+    this.setState({item})
+    if (this.state.modalIsOpen) {
+      this.setModalIsOpen(false)
+    } else {
+      this.setModalIsOpen(true)
+    }
+  }
+
   render(){
     const urlBase = this.context.config.codeshipFS.urlBase
     let clickEvent, nameProp
     if (this.props.users) {
       clickEvent = this.visitProfile
       nameProp = 'username'
+    } else {
+      clickEvent = this.showModal
+      nameProp = 'title'
     }
     return (
       <div className="carousel-container">
         <Carousel breakPoints={breakPoints}>
           {this.props.items ? this.props.items.map(
               item => 
+              <>
                 <Item key={item._id}>
                   <img style={this.styles} src={urlBase + item.img_path} alt={item[nameProp]} onClick={() => clickEvent(item)}/>
                 </Item>
+              </>
             ): null}
         </Carousel>
+        <ModalProduct product={this.state.item} setModalIsOpen={this.setModalIsOpen} modalIsOpen={this.state.modalIsOpen}/>
       </div>
     );
   }
