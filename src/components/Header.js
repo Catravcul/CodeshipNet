@@ -45,7 +45,7 @@ function Header() {
             </div>
             <img
               src={
-                context.config.codeshipApi.urlBase + "/" + context.session.img_path
+                context.config.codeshipFS.urlBase + context.session.img_path
               }
             ></img>
           </>

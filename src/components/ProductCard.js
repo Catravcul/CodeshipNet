@@ -22,7 +22,7 @@ function ProductCard(props) {
     <div className="ProductCard">
       <img
         onClick={() => setModalIsOpen(true)}
-        src={context.config.codeshipApi.urlBase + "/" + props.product.img_path}
+        src={context.config.codeshipFS.urlBase + props.product.img_path}
       />
       <div className="ContainerInfoCard">
         <h3> {props.product.title} </h3>

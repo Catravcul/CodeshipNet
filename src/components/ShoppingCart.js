@@ -84,7 +84,7 @@ function ShoppingCart(props) {
       {props.cart.map((product, index) => (
         <div key={index} className="ShoppingProducts">
           <img
-            src={context.config.codeshipApi.urlBase + "/" + product.img_path}
+            src={context.config.codeshipFS.urlBase + product.img_path}
           />
           <div className="ShoppingProductsInfo">
             <h3>{product.title}</h3>
