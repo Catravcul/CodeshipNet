@@ -62,7 +62,7 @@ function ModalProduct(props) {
       </span>
       <img
         className="imgProduct"
-        src={context.config.codeshipApi.urlBase + "/" + props.product.img_path}
+        src={context.config.codeshipFS.urlBase + props.product.img_path}
       />
       <h3 className="TitleProductModal">{props.product.title}</h3>
       <p className="DescriptionProductModal">{props.product.description}</p>
@@ -82,7 +82,7 @@ function ModalProduct(props) {
             <img
               className="ImgUser"
               src={
-                context.config.codeshipApi.urlBase + "/" + commentObj.img_path
+                context.config.codeshipFS.urlBase + commentObj.img_path
               }
             />
             <p>

@@ -16,7 +16,7 @@ const initialState = {
   },
   passwordConfirm: {
     class:'form-input',
-    name:'confirmPassword',
+    name:'passwordConfirm',
     value:''
   },
   title: "",
@@ -47,7 +47,12 @@ class Form extends Component {
   
   //track the change of input values and keep in sync with the state object
   changeHandler = e => {
-    this.setState({[e.target.name]: e.target.value})
+    const {currentTarget:{name, value}} = e
+    if (name.search('password') >= 0) {
+      this.setState({[name]: {value: value, name: name, class: 'form-input'}})
+    } else {
+      this.setState({[name]: value})
+    }
   }
 
   //form validation
@@ -111,7 +116,11 @@ class Form extends Component {
       fetch(this.context.config.codeshipApi.urlBase + '/public/user',{method: "PUT", body: body})
       .then(response => {
         return response.json() //or .text you get a string
-      }).then(() => {window.location.href = '/login'})
+      }).then(({token}) => {
+        this.context.token = token
+        this.context.setToken(token)
+        this.fetchUpdate(this.context.config.codeshipFS.urlBase + '/user', body);
+      })
       .catch(error=> console.log(error))
     }
    }
@@ -119,21 +128,21 @@ class Form extends Component {
   submitUpdate = e => {
     e.preventDefault()
     const isValid = this.validate();
-    if(isValid) {
-      const token = sessionStorage.getItem("codeship-token")
+    if (isValid) {
       const body = new FormData(document.getElementById('form-register'));
-      fetch(this.context.config.codeshipApi.urlBase + '/user',{method: "PATCH", body: body, headers:{"x-access-token":token}})
-        .then(response => {
-        return response.json()
-      }).then(({user}) =>{
-        this.context.setSession(user)
-      })
-      .catch(error=> {
-        console.log(error)
-      })
+      this.fetchUpdate(this.context.config.codeshipApi.urlBase + '/user', body);
+      this.fetchUpdate(this.context.config.codeshipFS.urlBase + '/user', body);
     }
-   }
-
+  }
+  
+  fetchUpdate = (url, body) => {
+    fetch(url, {method: "PATCH", body, headers:{"x-access-token":this.context.token}})
+    .then(response => {
+    return response.json()
+    }).then(({user, err}) => err ? console.log(err) : this.context.setSession(user), body)
+    .catch(error => console.log(error))
+  }
+    
   profileImgHandler = (e) =>{
     const reader = new FileReader();
     reader.onload = () => {
@@ -183,11 +192,11 @@ class Form extends Component {
   let updateProfilePicture;
   if (this.props.update) {
     let imgSrc = profileImage;
-    if (this.props.user) if (this.props.user.img_path) imgSrc = this.context.config.codeshipApi.urlBase + '/' + this.props.user.img_path
+    if (this.props.user) if (this.props.user.img_path) imgSrc = this.context.config.codeshipFS.urlBase + this.props.user.img_path
     updateProfilePicture =
     <div className="updateProfileImg">
       <img id="register-img" src={imgSrc} alt="this is a profile picture"></img>
-      <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+      <input className="form-input hide-uplaod-img" id="image" type="file" accept="image/*" name="img" onChange={this.profileImgHandler} placeholder="Upload a profile picture"></input>
       <div>
         <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
       </div>
@@ -196,7 +205,7 @@ class Form extends Component {
     updateProfilePicture =
     <div className="img-holder">
       <img id="register-img" src={profileImage} alt="this is a profile picture"></img>
-      <input className="form-input hide-uplaod-img" type="file" accept="image/*" id="image" name="image" value="" onChange={this.profileImgHandler}placeholder="Upload a profile picture"></input>
+      <input className="form-input hide-uplaod-img" id="image" type="file" accept="image/*" name="img" onChange={this.profileImgHandler} placeholder="Upload a profile picture"></input>
       <div>
         <label className="upload-img-btn" htmlFor="image"> <i class="fas fa-file-image"></i> Upload a Profile Image</label>
       </div>
