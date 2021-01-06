@@ -5,7 +5,13 @@ import { Context } from "./Context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import Paypal from "./Paypal";
-
+// import images
+import coin1 from "../assets/coin1-02.png";
+import coin2 from "../assets/coin2-02.png";
+import coin3 from "../assets/coin3-02.png";
+import coin4 from "../assets/coin4-02.png";
+import coin5 from "../assets/coin5-02.png";
+import coin6 from "../assets/coin6-02.png";
 function ShoppingCart(props) {
   const context = useContext(Context);
 
@@ -158,7 +164,7 @@ function ShoppingCart(props) {
               }}
               className="Coins"
             >
-              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <img src={coin1}></img>
               <p data-coins="10">10 COINS</p>
             </div>
             <div
@@ -168,7 +174,7 @@ function ShoppingCart(props) {
               }}
               className="Coins"
             >
-              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <img src={coin2}></img>
               <p data-coins="50">50 COINS</p>
             </div>
             <div
@@ -178,7 +184,7 @@ function ShoppingCart(props) {
               }}
               className="Coins"
             >
-              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <img src={coin3}></img>
               <p data-coins="75">75 COINS</p>
             </div>
             <div
@@ -188,7 +194,7 @@ function ShoppingCart(props) {
               }}
               className="Coins"
             >
-              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <img src={coin4}></img>
               <p data-coins="100">100 COINS</p>
             </div>
             <div
@@ -198,7 +204,7 @@ function ShoppingCart(props) {
               }}
               className="Coins"
             >
-              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <img src={coin5}></img>
               <p data-coins="250">250 COINS</p>
             </div>
             <div
@@ -208,7 +214,7 @@ function ShoppingCart(props) {
               }}
               className="Coins"
             >
-              <img src="https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk"></img>
+              <img src={coin6}></img>
               <p data-coins="500">500 COINS</p>
             </div>
           </div>
