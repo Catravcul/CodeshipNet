@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Context } from './Context'
+import { Link } from 'react-router-dom'
 
 const initialState = {
   username: "",
@@ -179,9 +180,9 @@ class Form extends Component {
     loginRegisterNav = 
     <div className="login-regiser-nav">
       <div>
-        <p className="welcome-user">Login</p>
+        <Link to="/login" className="welcome-user">Login</Link>
         <p className="welcome-user"> | </p>
-        <p className="welcome-user">Register</p>
+        <Link to="/register" className="welcome-user">Register</Link>
       </div>
     </div>
   } else {
