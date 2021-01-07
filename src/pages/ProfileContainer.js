@@ -66,6 +66,12 @@ function ProfileContainer(){
   const showUpdateSpaceship = () => setUpdateForm(true)
 
   const showProfile = () => window.location.href = '/profile'
+  
+  const logOut = () => {
+    sessionStorage.setItem("codeship-token", "");
+    context.setSession({});
+    context.setToken("");
+  };
 
   return(
     <div className="profile-container">
@@ -78,7 +84,7 @@ function ProfileContainer(){
               <ButtonsNav title="Profile" click={showProfile}></ButtonsNav>
               <ButtonsNav title="User" click={showUpdateUser}></ButtonsNav>
               <ButtonsNav title="Spaceship" click={showUpdateSpaceship}></ButtonsNav>
-              <ButtonsNav title="Logout" click={showUpdateUser}></ButtonsNav>
+              <ButtonsNav title="Logout" click={logOut}></ButtonsNav>
             </div>
           </div>
           <div className="profile-info-container">
