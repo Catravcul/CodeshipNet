@@ -175,6 +175,7 @@ class Form extends Component {
   //register nav to not show in update
   let myButton;
   let loginRegisterNav;
+  let fileUpload = <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
   if (this.props.register) {
     myButton = <button className="formBtns" type="submit"> Register </button>
     loginRegisterNav = 
@@ -185,9 +186,11 @@ class Form extends Component {
         <Link to="/register" className="welcome-user">Register</Link>
       </div>
     </div>
-  } else {
+  } else if (this.context.session._id && !window.location.href.split('/')[4]) {
     myButton = 
     <button className="formBtns update-btn" type="submit"> Update Profile </button>
+  } else {
+    fileUpload = ''
   }
 
   let updateProfilePicture;
@@ -199,7 +202,7 @@ class Form extends Component {
       <img id="register-img" src={imgSrc} alt="this is a profile picture"></img>
       <input className="form-input hide-uplaod-img" id="image" type="file" accept="image/*" name="img" onChange={this.profileImgHandler} placeholder="Upload a profile picture"></input>
       <div>
-        <label className="upload-img-btn upload-btn-update-position" htmlFor="image"> <i class="fas fa-file-image"></i> Update Img</label>
+        {fileUpload}
       </div>
     </div>
   } else {
