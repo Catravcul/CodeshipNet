@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { Context } from './Context'
+import { Link } from 'react-router-dom'
 
 const initialState = {
   username: "",
@@ -56,9 +57,10 @@ handleLoginSubmit = e => {
                 </div>
                 <div>
                   {/* <label for=""> Password</label> */}
-                  <input className="form-input" type="text" id="password" name="password" value={password} onChange={this.changeLoginHandler} placeholder="Password"></input>
+                  <input className="form-input" type="password" id="password" name="password" value={password} onChange={this.changeLoginHandler} placeholder="Password"></input>
                 </div>
                 <button className="formBtns" type="submit"> Login</button>
+                <p>Don't have an account yet? <Link to="/register" className="register">Register!</Link></p>
            </form>
     </div>)
 }
