@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from 'react-router-dom'
 
 import { Context } from '../components/Context'
 
@@ -60,50 +61,48 @@ function ProfileContainer(){
   },[])
   
   //events for profile and spaceship update
-  const showUpdateProfile = () =>{
-    setUpdateForm(false)
-  }
+  const showUpdateUser = () => setUpdateForm(false)
   
-  const showUpdateSpaceship = () =>{
-      setUpdateForm(true)
-  }
+  const showUpdateSpaceship = () => setUpdateForm(true)
+
+  const showProfile = () => window.location.href = '/profile'
 
   return(
     <div className="profile-container">
         <div className="profile-content">
-            <div className="sidenav">
-                <div className="points-content">
-
+          <div className="sidenav">
+            <div className="points-content">
+            </div>
+            <div className="navbar">
+              <Link to="/" className="nav-buttons-container"><ButtonsNav title="Home"></ButtonsNav></Link>
+              <ButtonsNav title="Profile" click={showProfile}></ButtonsNav>
+              <ButtonsNav title="User" click={showUpdateUser}></ButtonsNav>
+              <ButtonsNav title="Spaceship" click={showUpdateSpaceship}></ButtonsNav>
+              <ButtonsNav title="Logout" click={showUpdateUser}></ButtonsNav>
+            </div>
+          </div>
+          <div className="profile-info-container">
+            <div className="users-container">
+              <Slider users={true} items={usersProfilePictures}></Slider>
+            </div>
+            <div className="profile-spaceship-info">
+            <div className="profile-spaceship-details">
+              {/*props update button*/}
+              <Form spaceship={updateForm} update={true} user={user}></Form>
+            </div>
+            <div className="user-spaceship-details">
+              <div className="user-spaceship-container">
+                <div className="">
+                  {}
                 </div>
-                <div className="navbar">
-      <ButtonsNav title="Profile" click={showUpdateProfile}></ButtonsNav>
-                    <ButtonsNav title="Spaceship" click={showUpdateSpaceship}></ButtonsNav>
+              </div>
+              <div className="products-slider-container">
+                <Slider items={productsImages}></Slider>
               </div>
             </div>
-            <div className="profile-info-container">
-                <div className="users-container">
-                    <Slider users={true} items={usersProfilePictures}></Slider>
-                </div>
-                <div className="profile-spaceship-info">
-                    <div className="profile-spaceship-details">
-                      {/*props update button*/}
-                        <Form spaceship={updateForm} update={true} user={user}></Form>
-                    </div>
-                    <div className="user-spaceship-details">
-                        <div className="user-spaceship-link-container">
-                        </div>
-                        <div className="user-spaceship-container">
-                            <div className="">
-                            {}
-                            </div>
-                        </div>
-                        <div className="products-slider-container">
-                            <Slider items={productsImages}></Slider>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
 )}
   
