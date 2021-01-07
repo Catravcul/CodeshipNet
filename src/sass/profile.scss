@@ -27,7 +27,6 @@
       background-color: rgba(255, 255, 255, 0.5);
 
       .points-content {
-        height: 10vh;
         background-color: rgba(255, 255, 255, 0.5);
       }
 
@@ -39,45 +38,35 @@
     }
     .profile-info-container {
       width: 85vw;
-      height: 15vh;
+      height: 100%;
       margin-left: 1vw;
-      // background-color: rgba(255, 255, 255, 0.5);
-
       .users-container {
-        width: 80%;
-        height: 12vh;
-        position: relative;
-        left: 10vw;
-        top: 5vh;
-        // background-color: rgba(255, 255, 255, 0.5);
       }
       .profile-spaceship-info {
         background-color: rgba(255, 255, 255, 0.5);
-        height: 65vh;
-        margin-top: 1vh;
+        height: 85%;
         display: flex;
         .profile-spaceship-details {
-          width: 19vw;
+          text-align: center;
+          width: 30%;
           height: 100%;
           background-color: rgba(255, 255, 255, 0.3);
+          .form-input {
+            padding-top: 3vw;
+          }
         }
         .user-spaceship-details {
-          width: 54.6vw;
+          width: 70%;
           height: 100%;
-          margin-left: 1vw;
-          // background-color: rgba(255, 255, 255, 0.3);
           .user-spaceship-link-container {
             height: 9vh;
             background-color: rgba(255, 255, 255, 0.3);
           }
           .user-spaceship-container {
-            height: 34vh;
-            // background-color: rgba(255, 255, 255, 0.3);
-            margin-top: 1vh;
+            height: 85%;
             .image-container {
               width: 70%;
               height: 100%;
-              // background-color: rgba(255, 255, 255, 0.3);
               position: relative;
               top: 50%;
               left: 50%;
@@ -86,22 +75,32 @@
             }
           }
           .products-slider-container {
-            // height: 10vh;
-            // background-color: rgba(255, 255, 255, 0.3);
-            margin-top: 2vh;
-            position: relative;
 
             .carousel-container {
-              position: relative;
-              top: 12vh;
-              width: 30vw;
-              left: 12vw;
+              #carousel-item {
+                width: '7vw' !important;
+                max-width: '90px' !important;
+                height: '7vw' !important;
+                max-height: '90px' !important;
+                font-size: '1rem' !important;
+              }
             }
           }
         }
       }
     }
   }
+}
+.carousel-item {
+  width: 7vw ;
+  max-width: 90px ;
+  height: 7vw ;
+  max-height: 90px ;
+  font-size: 1rem ;
+}
+
+.carousel-item:hover {
+  filter: brightness(1.5);
 }
 
 // slider dots
@@ -125,15 +124,49 @@
 
 //update form
 .upload-btn-update-position {
-  position: relative;
-  left: 31vw;
-  top: -35px;
 }
 
 //update btn
 
 .update-btn {
-  position: relative;
-  left: 4vw;
+  position: unset;
 }
 
+@media only screen and (max-width: 1024px) {
+  .profile-container {
+    .profile-content {
+      height: 90%;
+      flex-direction: column-reverse;
+      .profile-info-container {
+        width: 100%;
+        margin-left: unset;
+        .profile-spaceship-info {
+          height: 90%;
+          flex-direction: column;
+          .profile-spaceship-details {
+            width: 100%;
+          }
+          .user-spaceship-details {
+            width: 100%;
+            .user-spaceship-container {
+              height: 80%;
+            }
+          }
+        }
+      }
+      .sidenav {
+        width: 100%;
+        height: fit-content;
+        .navbar {
+          height: fit-content;
+          position: unset;
+          width: 100%;
+          display: flex;
+          .nav-buttons-container {
+            height: fit-content;
+          }
+        }
+      }
+    }
+  }
+}
