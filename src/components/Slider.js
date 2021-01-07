@@ -20,11 +20,6 @@ class Slider extends Component{
   
   setModalIsOpen = state => this.setState({modalIsOpen: state});
 
-  styles = {
-      width:100,
-      height: 100
-  };
-
   visitProfile = ({_id}) => {
     window.location.href = '/profile/' + _id
   }
@@ -55,7 +50,7 @@ class Slider extends Component{
               item => 
               <>
                 <Item key={item._id}>
-                  <img style={this.styles} src={urlBase + item.img_path} alt={item[nameProp]} onClick={() => clickEvent(item)}/>
+                  <img className='carousel-item' src={urlBase + item.img_path} alt={item[nameProp]} onClick={() => clickEvent(item)}/>
                 </Item>
               </>
             ): null}
