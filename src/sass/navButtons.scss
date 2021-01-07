@@ -2,10 +2,16 @@
   width: 100%;
   height: 10vh;
   text-align: center;
-  padding-top: 7vh;
 
   button {
-    padding: 15px;
-    width: 70%;
+    padding: 1vw;
+    width: 95%;
+    background-color: #ffff62;
+    border-radius: 10px;
+    border: none;
+  }
+
+  button:hover {
+    background-color: yellow;
   }
 }
